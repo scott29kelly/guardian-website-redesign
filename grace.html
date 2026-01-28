@@ -8,239 +8,145 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=111">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    :root {
-      --primary: #1a3a5c;
-      --primary-dark: #0f2439;
-      --accent: #f7941d;
-      --accent-glow: rgba(247, 148, 29, 0.4);
-      --white: #ffffff;
-      --gray-100: #f8f9fa;
-      --gray-800: #1a1a2e;
-      --gray-900: #0d0d1a;
-    }
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--gray-900);
-      color: var(--white);
+    /* Grace Page Specific Styles */
+    .grace-page {
       min-height: 100vh;
-      overflow-x: hidden;
+      background: linear-gradient(180deg, var(--light-gray) 0%, var(--white) 100%);
     }
     
-    /* Animated Background */
-    .bg-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 0;
+    .grace-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 8rem 2rem 4rem;
+      text-align: center;
+      position: relative;
       overflow: hidden;
     }
     
-    .bg-animation::before {
+    .grace-hero::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 30%, rgba(247, 148, 29, 0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 70%, rgba(26, 58, 92, 0.15) 0%, transparent 50%);
-      animation: bgPulse 15s ease-in-out infinite;
-    }
-    
-    @keyframes bgPulse {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      33% { transform: translate(2%, 2%) rotate(1deg); }
-      66% { transform: translate(-1%, 1%) rotate(-1deg); }
-    }
-    
-    /* Grid Pattern Overlay */
-    .grid-pattern {
-      position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background-image: 
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 50px 50px;
-      z-index: 1;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
     }
     
-    /* Header */
-    .grace-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(to bottom, var(--gray-900), transparent);
-    }
-    
-    .grace-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-      color: var(--white);
-    }
-    
-    .grace-logo svg {
-      width: 40px;
-      height: 40px;
-    }
-    
-    .grace-logo span {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 1.25rem;
-    }
-    
-    .back-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: color 0.3s ease;
-    }
-    
-    .back-btn:hover {
-      color: var(--white);
-    }
-    
-    /* Main Container */
-    .grace-container {
+    .grace-hero .container {
       position: relative;
-      z-index: 10;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 100px 2rem 2rem;
-    }
-    
-    /* Hero Section */
-    .grace-hero {
-      text-align: center;
-      margin-bottom: 3rem;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
     }
     
     .grace-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(247, 148, 29, 0.15);
-      border: 1px solid rgba(247, 148, 29, 0.3);
-      padding: 0.5rem 1rem;
+      background: rgba(247, 148, 29, 0.2);
+      border: 1px solid rgba(247, 148, 29, 0.4);
+      padding: 0.5rem 1.25rem;
       border-radius: 50px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--accent);
       margin-bottom: 1.5rem;
-      animation: fadeInUp 0.6s ease;
-    }
-    
-    .grace-badge svg {
-      width: 16px;
-      height: 16px;
+      font-weight: 600;
     }
     
     .grace-hero h1 {
       font-family: 'Poppins', sans-serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
       font-weight: 800;
       margin-bottom: 1rem;
-      animation: fadeInUp 0.6s ease 0.1s both;
-    }
-    
-    .grace-hero h1 .highlight {
-      background: linear-gradient(135deg, var(--accent), #ffc107);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
     
     .grace-hero p {
-      font-size: 1.25rem;
-      color: rgba(255,255,255,0.7);
+      font-size: 1.2rem;
+      opacity: 0.9;
       max-width: 600px;
       margin: 0 auto;
-      animation: fadeInUp 0.6s ease 0.2s both;
+      line-height: 1.7;
     }
     
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* Main Content */
+    .grace-content {
+      max-width: 1200px;
+      margin: -3rem auto 0;
+      padding: 0 2rem 4rem;
+      position: relative;
+      z-index: 10;
     }
     
-    /* Avatar Section */
-    .grace-main {
-      flex: 1;
+    .grace-interface {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      max-width: 1400px;
-      margin: 0 auto;
-      width: 100%;
-      animation: fadeInUp 0.6s ease 0.3s both;
+      grid-template-columns: 400px 1fr;
+      gap: 2rem;
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      overflow: hidden;
+      min-height: 550px;
     }
     
-    /* Video Panel */
-    .video-panel {
-      background: linear-gradient(145deg, rgba(26, 58, 92, 0.4), rgba(15, 36, 57, 0.6));
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 24px;
-      overflow: hidden;
+    /* Avatar Panel */
+    .avatar-panel {
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
       display: flex;
       flex-direction: column;
-    }
-    
-    .video-area {
-      flex: 1;
-      background: linear-gradient(180deg, var(--gray-800) 0%, var(--primary-dark) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: relative;
-      min-height: 400px;
     }
     
-    .avatar-placeholder {
-      text-align: center;
+    .avatar-area {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 2rem 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .avatar-area::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(247, 148, 29, 0.3) 0%, transparent 70%);
+      filter: blur(40px);
     }
     
     .avatar-image {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      border: 4px solid var(--accent);
-      box-shadow: 0 0 60px var(--accent-glow);
-      margin-bottom: 1.5rem;
-      animation: avatarPulse 3s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+      max-width: 320px;
+      width: 100%;
+      height: auto;
+      display: block;
+      mask-image: linear-gradient(to top, transparent 0%, black 10%, black 100%);
+      -webkit-mask-image: linear-gradient(to top, transparent 0%, black 10%, black 100%);
     }
     
-    @keyframes avatarPulse {
-      0%, 100% { box-shadow: 0 0 40px var(--accent-glow); }
-      50% { box-shadow: 0 0 80px var(--accent-glow), 0 0 120px rgba(247, 148, 29, 0.2); }
+    .avatar-info {
+      padding: 1.5rem;
+      background: rgba(0,0,0,0.2);
+      text-align: center;
+      color: var(--white);
     }
     
-    .avatar-status {
+    .avatar-info h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      color: rgba(255,255,255,0.8);
-      font-size: 0.95rem;
     }
     
     .status-dot {
@@ -248,85 +154,51 @@
       height: 10px;
       background: #4ade80;
       border-radius: 50%;
-      animation: blink 2s ease-in-out infinite;
+      animation: pulse 2s ease-in-out infinite;
     }
     
-    @keyframes blink {
+    @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
     }
     
-    .video-controls {
-      padding: 1.5rem;
-      background: rgba(0,0,0,0.3);
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-    }
-    
-    .control-btn {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.05);
-      color: var(--white);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-    }
-    
-    .control-btn:hover {
-      border-color: var(--accent);
-      background: rgba(247, 148, 29, 0.2);
-    }
-    
-    .control-btn.primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      width: 60px;
-      height: 60px;
-    }
-    
-    .control-btn.primary:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px var(--accent-glow);
+    .avatar-info p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin: 0;
     }
     
     /* Chat Panel */
     .chat-panel {
-      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 24px;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
     }
     
     .chat-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--light-gray);
     }
     
-    .chat-header h3 {
-      font-size: 1.1rem;
+    .chat-header h2 {
+      font-size: 1.25rem;
+      color: var(--primary);
       margin-bottom: 0.25rem;
     }
     
-    .chat-header span {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.5);
+    .chat-header p {
+      font-size: 0.9rem;
+      color: var(--medium-gray);
+      margin: 0;
     }
     
     .chat-messages {
       flex: 1;
-      padding: 1.5rem;
+      padding: 1.5rem 2rem;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      background: var(--light-gray);
     }
     
     .message {
@@ -338,64 +210,63 @@
     }
     
     .message.assistant {
-      background: rgba(26, 58, 92, 0.5);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.05);
       align-self: flex-start;
       border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     
     .message.user {
-      background: var(--accent);
+      background: var(--primary);
       color: var(--white);
       align-self: flex-end;
       border-bottom-right-radius: 4px;
     }
     
     .quick-actions {
-      padding: 0 1.5rem 1rem;
+      padding: 1rem 2rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
+      border-top: 1px solid var(--light-gray);
+      background: var(--white);
     }
     
     .quick-btn {
-      padding: 0.5rem 1rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.15);
+      padding: 0.6rem 1rem;
+      background: var(--light-gray);
+      border: 1px solid transparent;
       border-radius: 20px;
-      color: rgba(255,255,255,0.8);
+      color: var(--primary);
       font-size: 0.85rem;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
+      font-weight: 500;
     }
     
     .quick-btn:hover {
-      background: rgba(247, 148, 29, 0.2);
+      background: var(--white);
       border-color: var(--accent);
-      color: var(--white);
+      color: var(--accent);
     }
     
     .chat-input {
-      padding: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--light-gray);
       display: flex;
       gap: 1rem;
+      background: var(--white);
     }
     
     .chat-input input {
       flex: 1;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 12px;
       padding: 1rem 1.25rem;
-      color: var(--white);
+      border: 2px solid var(--light-gray);
+      border-radius: var(--radius-md);
       font-size: 1rem;
       outline: none;
-      transition: border-color 0.3s ease;
-    }
-    
-    .chat-input input::placeholder {
-      color: rgba(255,255,255,0.4);
+      transition: border-color 0.2s ease;
     }
     
     .chat-input input:focus {
@@ -406,11 +277,11 @@
       padding: 1rem 1.5rem;
       background: var(--accent);
       border: none;
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       color: var(--white);
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -421,54 +292,55 @@
       transform: translateY(-2px);
     }
     
-    /* Tech Features */
-    .tech-features {
+    /* Features Section */
+    .grace-features {
       margin-top: 4rem;
-      padding: 3rem 0;
-      border-top: 1px solid rgba(255,255,255,0.1);
     }
     
-    .tech-features h2 {
+    .grace-features .section-header {
       text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .grace-features h2 {
       font-family: 'Poppins', sans-serif;
-      font-size: 1.75rem;
+      font-size: 2rem;
+      color: var(--primary);
       margin-bottom: 0.5rem;
     }
     
-    .tech-features > p {
-      text-align: center;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 3rem;
+    .grace-features > p {
+      color: var(--medium-gray);
+      font-size: 1.1rem;
     }
     
     .features-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      gap: 1.5rem;
     }
     
     .feature-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
       text-align: center;
-      padding: 2rem 1.5rem;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
       transition: all 0.3s ease;
+      border: 1px solid var(--light-gray);
     }
     
     .feature-card:hover {
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(247, 148, 29, 0.3);
       transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+      border-color: var(--accent);
     }
     
     .feature-icon {
       width: 60px;
       height: 60px;
       background: linear-gradient(135deg, var(--accent), #ffc107);
-      border-radius: 16px;
+      border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -483,27 +355,65 @@
     
     .feature-card h4 {
       font-size: 1.1rem;
+      color: var(--primary);
       margin-bottom: 0.5rem;
     }
     
     .feature-card p {
       font-size: 0.9rem;
-      color: rgba(255,255,255,0.6);
+      color: var(--medium-gray);
       line-height: 1.5;
+      margin: 0;
     }
     
-    /* Footer */
-    .grace-footer {
+    /* CTA Section */
+    .grace-cta {
+      margin-top: 4rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: var(--radius-xl);
+      padding: 3rem;
       text-align: center;
-      padding: 2rem;
-      color: rgba(255,255,255,0.4);
-      font-size: 0.85rem;
+      color: var(--white);
+    }
+    
+    .grace-cta h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+    
+    .grace-cta p {
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .grace-cta .btn {
+      background: var(--accent);
+      color: var(--white);
+      padding: 1rem 2rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+    
+    .grace-cta .btn:hover {
+      background: #e8850f;
+      transform: translateY(-2px);
     }
     
     /* Responsive */
     @media (max-width: 1024px) {
-      .grace-main {
+      .grace-interface {
         grid-template-columns: 1fr;
+      }
+      
+      .avatar-panel {
+        max-height: 350px;
       }
       
       .features-grid {
@@ -512,90 +422,107 @@
     }
     
     @media (max-width: 640px) {
-      .grace-container {
-        padding: 80px 1rem 1rem;
+      .grace-hero {
+        padding: 6rem 1rem 3rem;
+      }
+      
+      .grace-content {
+        padding: 0 1rem 2rem;
+        margin-top: -2rem;
+      }
+      
+      .avatar-panel {
+        max-height: 300px;
+      }
+      
+      .avatar-image {
+        max-width: 200px;
+      }
+      
+      .chat-header, .chat-input, .quick-actions {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
+      .chat-messages {
+        padding: 1rem;
       }
       
       .features-grid {
         grid-template-columns: 1fr;
       }
       
-      .video-area {
-        min-height: 300px;
-      }
-      
-      .avatar-image {
-        width: 150px;
-        height: 150px;
+      .grace-cta {
+        padding: 2rem 1.5rem;
       }
     }
   </style>
 </head>
-<body>
-  <div class="bg-animation"></div>
-  <div class="grid-pattern"></div>
-  
-  <header class="grace-header">
-    <a href="index.html" class="grace-logo">
-      <svg viewBox="0 0 100 100"><path fill="#f7941d" d="M50 5L5 45h15v50h60V45h15L50 5z"/><path fill="#1a3a5c" d="M50 20L25 42v38h50V42L50 20z"/></svg>
-      <span>Guardian</span>
-    </a>
-    <a href="index.html" class="back-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Back to Website
-    </a>
-  </header>
-  
-  <main class="grace-container">
-    <section class="grace-hero">
-      <div class="grace-badge">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-        AI-Powered Assistance
-      </div>
-      <h1>Meet <span class="highlight">Grace</span></h1>
-      <p>Your personal insurance claims specialist, available 24/7. Get instant answers about storm damage, coverage, and the claims process.</p>
-    </section>
-    
-    <section class="grace-main">
-      <div class="video-panel">
-        <div class="video-area">
-          <div class="avatar-placeholder">
-            <img src="images/avatar-grace.jpg" alt="Grace - AI Assistant" class="avatar-image">
-            <div class="avatar-status">
-              <span class="status-dot"></span>
-              Ready to help
-            </div>
-          </div>
+<body class="grace-page">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <svg viewBox="0 0 100 100" width="45" height="45"><path fill="#f7941d" d="M50 5L5 45h15v50h60V45h15L50 5z"/><path fill="#1a3a5c" d="M50 20L25 42v38h50V42L50 20z"/></svg>
+        <div class="logo-text">
+          <span class="logo-title">Guardian Roofing & Siding</span>
+          <span class="logo-tagline">Family-Owned Since 2010</span>
         </div>
-        <div class="video-controls">
-          <button class="control-btn" title="Mute">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-          </button>
-          <button class="control-btn primary" title="Start Conversation">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <button class="control-btn" title="Settings">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-          </button>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="roofing.html">Roofing</a>
+        <a href="siding.html">Siding</a>
+        <a href="storm-damage.html">Storm Damage</a>
+        <a href="contact.html" class="btn btn-accent">Free Estimate</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="grace-hero">
+    <div class="container">
+      <span class="grace-badge">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        AI-Powered Assistance
+      </span>
+      <h1>Meet Grace, Your Claims Specialist</h1>
+      <p>Get instant answers about storm damage, insurance claims, and repairs. Available 24/7 to guide you through the process.</p>
+    </div>
+  </section>
+
+  <!-- Main Interface -->
+  <section class="grace-content">
+    <div class="grace-interface">
+      <div class="avatar-panel">
+        <div class="avatar-area">
+          <img src="images/avatar-grace-large.jpg" alt="Grace - AI Insurance Claims Specialist" class="avatar-image">
+        </div>
+        <div class="avatar-info">
+          <h3><span class="status-dot"></span> Grace</h3>
+          <p>Insurance Claims Specialist</p>
         </div>
       </div>
       
       <div class="chat-panel">
         <div class="chat-header">
-          <h3>Conversation</h3>
-          <span>Ask anything about insurance claims & storm damage</span>
+          <h2>How can I help you today?</h2>
+          <p>Ask me anything about insurance claims, storm damage, or our services</p>
         </div>
+        
         <div class="chat-messages">
           <div class="message assistant">
             Hi! I'm Grace, Guardian's AI insurance claims specialist. I'm here to help you understand the claims process and answer any questions about storm damage repairs. What can I help you with today?
           </div>
         </div>
+        
         <div class="quick-actions">
           <button class="quick-btn">Do I have storm damage?</button>
           <button class="quick-btn">How do insurance claims work?</button>
           <button class="quick-btn">What will I pay?</button>
           <button class="quick-btn">Schedule inspection</button>
         </div>
+        
         <div class="chat-input">
           <input type="text" placeholder="Type your message...">
           <button>
@@ -604,11 +531,15 @@
           </button>
         </div>
       </div>
-    </section>
-    
-    <section class="tech-features">
-      <h2>The Future of Home Services</h2>
-      <p>Guardian is pioneering AI-first operations in roofing and siding</p>
+    </div>
+
+    <!-- Features -->
+    <div class="grace-features">
+      <div class="section-header">
+        <h2>The Future of Home Services</h2>
+        <p>Guardian is pioneering AI-first operations in roofing and siding</p>
+      </div>
+      
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">
@@ -617,6 +548,7 @@
           <h4>24/7 Availability</h4>
           <p>Get answers anytime, even after hours or during emergencies</p>
         </div>
+        
         <div class="feature-card">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -624,6 +556,7 @@
           <h4>Expert Knowledge</h4>
           <p>Trained on thousands of claims to give you accurate guidance</p>
         </div>
+        
         <div class="feature-card">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -631,6 +564,7 @@
           <h4>Instant Responses</h4>
           <p>No hold times, no waiting—get help in seconds</p>
         </div>
+        
         <div class="feature-card">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -639,11 +573,122 @@
           <p>Connects you with our human team when you're ready</p>
         </div>
       </div>
-    </section>
+    </div>
+
+    <!-- CTA -->
+    <div class="grace-cta">
+      <h3>Prefer to Talk to a Human?</h3>
+      <p>Our friendly team is available Monday-Saturday to answer your questions</p>
+      <a href="tel:855-424-5911" class="btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call 855-424-5911
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 2rem;">
+        <p>© 2026 Guardian Roofing & Siding. All rights reserved.</p>
+        <p>Pioneering the future of home services with AI-powered customer support.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA -->
+  <div class="mobile-cta">
+    <a href="tel:855-424-5911">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Call Now: 855-424-5911
+    </a>
+  </div>
+
+  <script>
+    // Configuration
+    const API_URL = 'https://baking-degrees-test-cope.trycloudflare.com/chat';
+    const DEMO_MODE = !API_URL;
     
-    <footer class="grace-footer">
-      <p>© 2026 Guardian Roofing & Siding. Pioneering the future of home services.</p>
-    </footer>
-  </main>
+    let conversationHistory = [];
+    
+    const messagesContainer = document.querySelector('.chat-messages');
+    const inputField = document.querySelector('.chat-input input');
+    const sendButton = document.querySelector('.chat-input button');
+    const quickButtons = document.querySelectorAll('.quick-btn');
+    
+    const demoResponses = {
+      'do i have storm damage': "That's a great question. Storm damage isn't always visible from the ground—hail can crack shingles and wind can loosen flashing without obvious signs. I'd recommend scheduling a free inspection so one of our experts can give you a thorough assessment. Would you like me to help you set that up?",
+      'how do insurance claims work': "Great question! Here's the simple version: Your homeowner's insurance typically covers sudden storm damage. When you file a claim, an adjuster assesses the damage and approves repairs minus your deductible. What makes Guardian different is we handle everything FOR you—we document the damage, file the paperwork, and meet with the adjuster to make sure nothing is missed. Would you like to know more about any part of this process?",
+      'what will i pay': "Most of our customers pay only their deductible—that's typically between $500 and $2,500, depending on your policy. Insurance is designed to cover the full cost of repairs minus that deductible. We work directly with your insurance company to ensure the settlement covers quality materials and proper installation. We never ask for payment until your claim is approved!",
+      'schedule inspection': "I'd be happy to help you get scheduled! Our inspection team covers PA, NJ, DE, MD, VA, and NY, with appointments available Monday through Saturday. You can call us directly at 855-424-5911, or click the 'Schedule Inspection' button on our website to pick a time that works for you. Is there anything else you'd like to know before scheduling?",
+      'default': "That's a great question. To give you the most accurate information for your specific situation, I'd recommend scheduling a free inspection with one of our experts. They can assess your home, answer all your questions in detail, and explain your options. Would you like to schedule one, or is there something else I can help clarify?"
+    };
+    
+    function getDemoResponse(message) {
+      const lower = message.toLowerCase();
+      if (lower.includes('storm') || lower.includes('damage')) return demoResponses['do i have storm damage'];
+      if (lower.includes('insurance') || lower.includes('claim')) return demoResponses['how do insurance claims work'];
+      if (lower.includes('pay') || lower.includes('cost') || lower.includes('price')) return demoResponses['what will i pay'];
+      if (lower.includes('schedule') || lower.includes('inspection') || lower.includes('appointment')) return demoResponses['schedule inspection'];
+      return demoResponses['default'];
+    }
+    
+    function addMessage(content, role) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${role}`;
+      messageDiv.textContent = content;
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    function setLoading(isLoading) {
+      sendButton.disabled = isLoading;
+      inputField.disabled = isLoading;
+      sendButton.innerHTML = isLoading 
+        ? '<span style="animation: pulse 1s infinite">●●●</span>'
+        : 'Send <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+    }
+    
+    async function sendMessage(userMessage) {
+      if (!userMessage.trim()) return;
+      
+      addMessage(userMessage, 'user');
+      conversationHistory.push({ role: 'user', content: userMessage });
+      inputField.value = '';
+      setLoading(true);
+      
+      if (DEMO_MODE) {
+        await new Promise(r => setTimeout(r, 800 + Math.random() * 700));
+        const response = getDemoResponse(userMessage);
+        addMessage(response, 'assistant');
+        conversationHistory.push({ role: 'assistant', content: response });
+        setLoading(false);
+        return;
+      }
+      
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: conversationHistory })
+        });
+        const data = await response.json();
+        if (data.response) {
+          addMessage(data.response, 'assistant');
+          conversationHistory.push({ role: 'assistant', content: data.response });
+        } else {
+          addMessage('I apologize, but I\'m having trouble connecting. Please call us at 855-424-5911.', 'assistant');
+        }
+      } catch (error) {
+        addMessage('I apologize, but I\'m having trouble connecting. Please call us at 855-424-5911.', 'assistant');
+      }
+      
+      setLoading(false);
+    }
+    
+    sendButton.addEventListener('click', () => sendMessage(inputField.value));
+    inputField.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(inputField.value); });
+    quickButtons.forEach(btn => btn.addEventListener('click', () => sendMessage(btn.textContent)));
+  </script>
 </body>
 </html>
