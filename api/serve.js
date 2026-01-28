@@ -1,8 +1,14 @@
 const http = require('http');
 const https = require('https');
+require('dotenv').config();
 
-const PORT = 3001;
-const GROQ_API_KEY = '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';
+const PORT = process.env.PORT || 3001;
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+
+if (!GROQ_API_KEY) {
+  console.error('ERROR: GROQ_API_KEY not set. Create a .env file with your key.');
+  process.exit(1);
+}
 
 const SYSTEM_PROMPT = `You are Grace, Guardian Roofing & Siding's AI Insurance Claims Specialist. You help homeowners understand the storm damage insurance claims process.
 
