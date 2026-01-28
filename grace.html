@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=112">
+  <link rel="stylesheet" href="css/styles.css?v=113">
   <style>
     /* Grace Page Specific Styles */
     .grace-page {
@@ -463,19 +463,42 @@
   <header class="header">
     <div class="container">
       <a href="index.html" class="logo">
-        <svg viewBox="0 0 100 100" width="45" height="45"><path fill="#f7941d" d="M50 5L5 45h15v50h60V45h15L50 5z"/><path fill="#1a3a5c" d="M50 20L25 42v38h50V42L50 20z"/></svg>
+        <div class="logo-icon">🏠</div>
         <div class="logo-text">
-          <span class="logo-title">Guardian Roofing & Siding</span>
-          <span class="logo-tagline">Family-Owned Since 2010</span>
+          Guardian Roofing & Siding
+          <span>Family-Owned Since 2010</span>
         </div>
       </a>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="roofing.html">Roofing</a>
-        <a href="siding.html">Siding</a>
-        <a href="storm-damage.html">Storm Damage</a>
-        <a href="contact.html" class="btn btn-accent">Free Estimate</a>
+      
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-dropdown">
+            <a href="#">Services</a>
+            <ul class="dropdown">
+              <li><a href="roofing.html">Roofing</a></li>
+              <li><a href="siding.html">Siding</a></li>
+              <li><a href="storm-damage.html">Storm Repair</a></li>
+            </ul>
+          </li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="service-areas.html">Service Areas</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="grace.html" class="nav-grace active">Ask Grace 🤖</a></li>
+        </ul>
+        <div class="header-cta">
+          <a href="contact.html" class="btn btn-primary">Free Inspection</a>
+        </div>
       </nav>
+      <div class="nav-overlay"></div>
     </div>
   </header>
 
@@ -604,6 +627,7 @@
     </a>
   </div>
 
+  <script src="js/main.js"></script>
   <script>
     // Configuration
     const API_URL = '/api/chat';
