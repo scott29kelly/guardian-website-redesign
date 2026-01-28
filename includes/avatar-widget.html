@@ -1,0 +1,38 @@
+<!-- AI Avatar Widget (Grace) -->
+<div class="avatar-widget" id="avatarWidget">
+  <div class="avatar-label">Questions? Ask Grace</div>
+  <div class="avatar-trigger" onclick="toggleAvatar()">
+    <img src="images/avatar-grace.jpg" alt="Grace - Insurance Claims Specialist">
+  </div>
+  <div class="avatar-popup" id="avatarPopup">
+    <div class="avatar-header">
+      <img src="images/avatar-grace.jpg" alt="Grace" class="avatar-header-img">
+      <div class="avatar-header-info">
+        <h4>Grace</h4>
+        <span>Insurance Claims Specialist</span>
+      </div>
+      <button class="avatar-close" onclick="toggleAvatar()">&times;</button>
+    </div>
+    <div class="avatar-video">
+      <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="#2a4a6d"/><path d="M10 8l6 4-6 4V8z" fill="#f7941d"/></svg>
+      <span>AI Video Avatar</span>
+    </div>
+    <div class="avatar-body">
+      <div class="avatar-message">
+        Hi! I'm Grace from Guardian Roofing & Siding. I can help you understand the insurance claims process for storm damage. What would you like to know?
+      </div>
+      <div class="avatar-input">
+        <input type="text" placeholder="Type your question...">
+        <button>Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function toggleAvatar() {
+  var popup = document.getElementById("avatarPopup");
+  popup.classList.toggle("active");
+}
+</script>
+</content>
+</invoke>

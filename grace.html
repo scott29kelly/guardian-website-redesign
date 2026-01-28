@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask Grace | AI-Powered Assistance | Guardian Roofing & Siding</title>
+  <meta name="description" content="Meet Grace, Guardian's AI insurance claims specialist. Get instant answers about storm damage, insurance claims, and home repairs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --primary: #1a3a5c;
+      --primary-dark: #0f2439;
+      --accent: #f7941d;
+      --accent-glow: rgba(247, 148, 29, 0.4);
+      --white: #ffffff;
+      --gray-100: #f8f9fa;
+      --gray-800: #1a1a2e;
+      --gray-900: #0d0d1a;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-900);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    
+    .bg-animation::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(247, 148, 29, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 70%, rgba(26, 58, 92, 0.15) 0%, transparent 50%);
+      animation: bgPulse 15s ease-in-out infinite;
+    }
+    
+    @keyframes bgPulse {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(2%, 2%) rotate(1deg); }
+      66% { transform: translate(-1%, 1%) rotate(-1deg); }
+    }
+    
+    /* Grid Pattern Overlay */
+    .grid-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 1;
+    }
+    
+    /* Header */
+    .grace-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, var(--gray-900), transparent);
+    }
+    
+    .grace-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--white);
+    }
+    
+    .grace-logo svg {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .grace-logo span {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+    
+    .back-btn:hover {
+      color: var(--white);
+    }
+    
+    /* Main Container */
+    .grace-container {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 100px 2rem 2rem;
+    }
+    
+    /* Hero Section */
+    .grace-hero {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .grace-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(247, 148, 29, 0.15);
+      border: 1px solid rgba(247, 148, 29, 0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.6s ease;
+    }
+    
+    .grace-badge svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .grace-hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      animation: fadeInUp 0.6s ease 0.1s both;
+    }
+    
+    .grace-hero h1 .highlight {
+      background: linear-gradient(135deg, var(--accent), #ffc107);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .grace-hero p {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto;
+      animation: fadeInUp 0.6s ease 0.2s both;
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Avatar Section */
+    .grace-main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      animation: fadeInUp 0.6s ease 0.3s both;
+    }
+    
+    /* Video Panel */
+    .video-panel {
+      background: linear-gradient(145deg, rgba(26, 58, 92, 0.4), rgba(15, 36, 57, 0.6));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .video-area {
+      flex: 1;
+      background: linear-gradient(180deg, var(--gray-800) 0%, var(--primary-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 400px;
+    }
+    
+    .avatar-placeholder {
+      text-align: center;
+    }
+    
+    .avatar-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      box-shadow: 0 0 60px var(--accent-glow);
+      margin-bottom: 1.5rem;
+      animation: avatarPulse 3s ease-in-out infinite;
+    }
+    
+    @keyframes avatarPulse {
+      0%, 100% { box-shadow: 0 0 40px var(--accent-glow); }
+      50% { box-shadow: 0 0 80px var(--accent-glow), 0 0 120px rgba(247, 148, 29, 0.2); }
+    }
+    
+    .avatar-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95rem;
+    }
+    
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .video-controls {
+      padding: 1.5rem;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .control-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      color: var(--white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .control-btn:hover {
+      border-color: var(--accent);
+      background: rgba(247, 148, 29, 0.2);
+    }
+    
+    .control-btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      width: 60px;
+      height: 60px;
+    }
+    
+    .control-btn.primary:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px var(--accent-glow);
+    }
+    
+    /* Chat Panel */
+    .chat-panel {
+      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .chat-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .chat-header h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .chat-header span {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+    
+    .chat-messages {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .message {
+      max-width: 85%;
+      padding: 1rem 1.25rem;
+      border-radius: 18px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    .message.assistant {
+      background: rgba(26, 58, 92, 0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    
+    .message.user {
+      background: var(--accent);
+      color: var(--white);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    
+    .quick-actions {
+      padding: 0 1.5rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .quick-btn {
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .quick-btn:hover {
+      background: rgba(247, 148, 29, 0.2);
+      border-color: var(--accent);
+      color: var(--white);
+    }
+    
+    .chat-input {
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .chat-input input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      color: var(--white);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    
+    .chat-input input::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+    
+    .chat-input input:focus {
+      border-color: var(--accent);
+    }
+    
+    .chat-input button {
+      padding: 1rem 1.5rem;
+      background: var(--accent);
+      border: none;
+      border-radius: 12px;
+      color: var(--white);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .chat-input button:hover {
+      background: #e8850f;
+      transform: translateY(-2px);
+    }
+    
+    /* Tech Features */
+    .tech-features {
+      margin-top: 4rem;
+      padding: 3rem 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .tech-features h2 {
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .tech-features > p {
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 3rem;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .feature-card {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(247, 148, 29, 0.3);
+      transform: translateY(-5px);
+    }
+    
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--accent), #ffc107);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+    }
+    
+    .feature-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--white);
+    }
+    
+    .feature-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .feature-card p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+    }
+    
+    /* Footer */
+    .grace-footer {
+      text-align: center;
+      padding: 2rem;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.85rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .grace-main {
+        grid-template-columns: 1fr;
+      }
+      
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .grace-container {
+        padding: 80px 1rem 1rem;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .video-area {
+        min-height: 300px;
+      }
+      
+      .avatar-image {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation"></div>
+  <div class="grid-pattern"></div>
+  
+  <header class="grace-header">
+    <a href="index.html" class="grace-logo">
+      <svg viewBox="0 0 100 100"><path fill="#f7941d" d="M50 5L5 45h15v50h60V45h15L50 5z"/><path fill="#1a3a5c" d="M50 20L25 42v38h50V42L50 20z"/></svg>
+      <span>Guardian</span>
+    </a>
+    <a href="index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to Website
+    </a>
+  </header>
+  
+  <main class="grace-container">
+    <section class="grace-hero">
+      <div class="grace-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        AI-Powered Assistance
+      </div>
+      <h1>Meet <span class="highlight">Grace</span></h1>
+      <p>Your personal insurance claims specialist, available 24/7. Get instant answers about storm damage, coverage, and the claims process.</p>
+    </section>
+    
+    <section class="grace-main">
+      <div class="video-panel">
+        <div class="video-area">
+          <div class="avatar-placeholder">
+            <img src="images/avatar-grace.jpg" alt="Grace - AI Assistant" class="avatar-image">
+            <div class="avatar-status">
+              <span class="status-dot"></span>
+              Ready to help
+            </div>
+          </div>
+        </div>
+        <div class="video-controls">
+          <button class="control-btn" title="Mute">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </button>
+          <button class="control-btn primary" title="Start Conversation">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button class="control-btn" title="Settings">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </button>
+        </div>
+      </div>
+      
+      <div class="chat-panel">
+        <div class="chat-header">
+          <h3>Conversation</h3>
+          <span>Ask anything about insurance claims & storm damage</span>
+        </div>
+        <div class="chat-messages">
+          <div class="message assistant">
+            Hi! I'm Grace, Guardian's AI insurance claims specialist. I'm here to help you understand the claims process and answer any questions about storm damage repairs. What can I help you with today?
+          </div>
+        </div>
+        <div class="quick-actions">
+          <button class="quick-btn">Do I have storm damage?</button>
+          <button class="quick-btn">How do insurance claims work?</button>
+          <button class="quick-btn">What will I pay?</button>
+          <button class="quick-btn">Schedule inspection</button>
+        </div>
+        <div class="chat-input">
+          <input type="text" placeholder="Type your message...">
+          <button>
+            Send
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+    
+    <section class="tech-features">
+      <h2>The Future of Home Services</h2>
+      <p>Guardian is pioneering AI-first operations in roofing and siding</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h4>24/7 Availability</h4>
+          <p>Get answers anytime, even after hours or during emergencies</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4>Expert Knowledge</h4>
+          <p>Trained on thousands of claims to give you accurate guidance</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h4>Instant Responses</h4>
+          <p>No hold times, no waiting—get help in seconds</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h4>Seamless Handoff</h4>
+          <p>Connects you with our human team when you're ready</p>
+        </div>
+      </div>
+    </section>
+    
+    <footer class="grace-footer">
+      <p>© 2026 Guardian Roofing & Siding. Pioneering the future of home services.</p>
+    </footer>
+  </main>
+</body>
+</html>
