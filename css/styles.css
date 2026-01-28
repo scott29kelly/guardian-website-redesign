@@ -1754,3 +1754,13 @@ select.form-control {
     height: 24px;
   }
 }
+
+/* Ask Grace Nav Link */
+.nav-grace {
+  color: var(--accent) !important;
+  font-weight: 600 !important;
+}
+
+.nav-grace:hover {
+  color: var(--primary) !important;
+}
