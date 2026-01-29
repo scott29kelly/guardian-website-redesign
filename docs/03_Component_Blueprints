@@ -1,0 +1,34 @@
+# 03_COMPONENT_BLUEPRINTS.md
+
+## 1. The Navbar & Toggle
+* **Layout:** Sticky, Glassmorphic.
+* **Left:** Logo (SVG).
+* **Center:** Links (Hidden on mobile).
+* **Right:** * "Get Estimate" Pill Button (Orange Gradient).
+    * **Theme Toggle:** A toggle switch that animates between a Sun (Yellow) and Moon (Silver).
+* **Mobile:** Hamburger menu triggers a full-screen glass overlay.
+
+## 2. Hero Section (The "Hook")
+* **Background:** High-res image of a roof/home with a dark gradient overlay (to make text pop).
+* **Headline:** "Fortify Your Home." (H1, 4rem+).
+* **Subhead:** "Premium roofing and siding solutions designed for the future."
+* **Trust Ticker:** Immediately below the Hero, an infinite scroll of monochrome logos (GAF, Atlas, BBB) to establish authority before the user scrolls down.
+
+## 3. "Bento Grid" Services
+* *Replace the old 3-column service cards with a Bento Grid.*
+* **Large Left Card:** "Roofing" (Video background on hover).
+* **Top Right Card:** "Siding" (Before/After slider).
+* **Bottom Right Card:** "Storm Repair" (Iconography focusing on Speed/Insurance).
+* **Animation:** Staggered fade-in on scroll.
+
+## 4. The "Process" Timeline
+* *Refactor the "How Insurances Work" section.*
+* **Design:** Vertical line with glowing nodes.
+* **Interaction:** As the user scrolls down, the line fills with blue/orange color ("charging up").
+* **Steps:** 1. Inspection -> 2. Claim Filing -> 3. Adjuster Meeting -> 4. Restoration.
+
+## 5. "Ask Grace" Integration
+* **Component:** `FloatingAssistant.tsx`
+* **Behavior:** A floating circular button with the "Grace" avatar.
+* **Hover:** Expands to say "Need help with a claim?"
+* **Click:** Opens a chat modal (mocked for now, or linked to the existing `grace.html` logic).
