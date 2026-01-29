@@ -1,0 +1,36 @@
+# 02_DESIGN_SYSTEM.md
+
+## 🎨 Color Palette (The "Guardian" Evolution)
+
+### 🔵 Primary Brand (Refined)
+* **Deep Navy:** `#0F172A` (Slate 900) → *Primary Brand Base*
+* **Guardian Blue:** `#0EA5E9` (Sky 500) → *Accents & Links*
+* **Safety Orange:** `#F97316` (Orange 500) → *CTAs ONLY (Use sparingly)*
+
+### ☀️ Light Mode (Day Shift)
+* **Background:** `#FFFFFF` (Pure White)
+* **Surface:** `#F8FAFC` (Slate 50)
+* **Text Primary:** `#0F172A` (Slate 900)
+* **Text Secondary:** `#475569` (Slate 600)
+* **Border:** `#E2E8F0` (Slate 200)
+
+### 🌙 Dark Mode (Night Watch)
+* **Background:** `#020617` (Slate 950 - "Void")
+* **Surface:** `#1E293B` (Slate 800 - with 50% opacity/glass)
+* **Text Primary:** `#F8FAFC` (Slate 50)
+* **Text Secondary:** `#94A3B8` (Slate 400)
+* **Border:** `#1E293B` (Slate 800)
+
+## 🔠 Typography
+* **Headings:** `Plus Jakarta Sans` or `Inter`. Weights: 700/800. Tracking: `-0.025em`.
+* **Body:** `Inter`. Weight: 400. Line-height: `1.6`.
+
+## ✨ UI Physics (The "Polish")
+1.  **Glassmorphism:**
+    * **Rule:** All floating elements (Navbar, Modals, Toasts) use backdrop blur.
+    * **CSS:** `bg-slate-900/70 backdrop-blur-md border border-white/10`
+2.  **Borders:**
+    * **Rule:** No thick borders. Use `1px` borders with low opacity.
+    * **Radius:** `rounded-2xl` for cards, `rounded-full` for buttons.
+3.  **Shadows:**
+    * **Dark Mode:** Use "Glow" shadows (`shadow-blue-500/20`) instead of black drop shadows.
