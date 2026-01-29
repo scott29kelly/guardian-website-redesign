@@ -1,0 +1,20 @@
+# 01_MISSION_BRIEF.md
+
+## 🎯 Objective
+Renovate the `guardian-website-redesign` repository to meet **2026 Premium Standards**. The goal is to shed the "local contractor" feel and adopt a **"Modern SaaS / Architectural Firm"** aesthetic. The user experience must be fluid, high-trust, and offer a seamless Dark/Light mode toggle.
+
+## 💎 The "2026 Premium" Aesthetic
+* **Visual Language:** "Apple meets Architecture." Clean lines, heavy use of negative space, glassmorphism, and subtle motion.
+* **Trust Factors:** Certifications (GAF, Atlas Pro+) should look like high-end awards, not stickers.
+* **Interaction:** * **Light Mode:** Professional, crisp, using silver and cool whites. (Daytime visibility).
+    * **Dark Mode:** "Midnight Slate" – sleek, premium, using deep blues/charcoal. (Tech-forward/Premium feel).
+
+## 🤖 Special Feature: "Ask Grace"
+The existing `grace.html` (AI Chatbot) is a unique differentiator. 
+* **New Requirement:** "Grace" should no longer be just a page link. She should be integrated as a **Floating Concierge Button** (bottom-right) or a glass-morphic widget that follows the user, offering instant help.
+
+## 🛠 Core Tech Requirements
+1.  **Framework:** Migrate from static HTML to **Vite + React + Tailwind CSS v4**.
+2.  **Animation:** Use `framer-motion` for scroll reveals and layout transitions.
+3.  **Icons:** `lucide-react` for modern, stroke-based iconography.
+4.  **Performance:** Must hit 100/100 Lighthouse.
