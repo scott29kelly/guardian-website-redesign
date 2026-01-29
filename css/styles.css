@@ -750,7 +750,9 @@ p {
 
 .testimonial-card .stars {
   color: var(--accent);
-  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
 }
 
 .testimonial-card blockquote {
@@ -759,15 +761,14 @@ p {
   margin: 0;
   line-height: 1.8;
   color: var(--dark-gray);
+  flex-grow: 1;
 }
 
 .testimonial-card .author {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--light-gray);
+  margin-bottom: 1.25rem;
 }
 
 .testimonial-card .author-avatar {
