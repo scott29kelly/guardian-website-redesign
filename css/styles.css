@@ -1071,7 +1071,7 @@ select.form-control {
 
 .footer-links a {
   display: block;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.85);
   padding: var(--spacing-xs) 0;
   transition: color var(--transition-fast);
 }
