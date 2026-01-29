@@ -1,0 +1,26 @@
+# 04_MIGRATION_STRATEGY.md
+
+## Phase 1: Setup & Environment
+1.  Initialize a new Vite project: `npm create vite@latest . -- --template react-ts`
+2.  Install Tailwind v4 (or v3.4): `npm install -D tailwindcss postcss autoprefixer`
+3.  Install dependencies: `npm install framer-motion lucide-react react-router-dom`
+4.  **Critical:** Copy the existing `images/` folder to `public/images/`.
+
+## Phase 2: Component Architecture
+1.  Create `src/components/layout/Layout.tsx`: Handles the Sticky Nav and Footer.
+2.  Create `src/components/ui/ThemeToggle.tsx`: Manages the Dark/Light context.
+3.  **Porting Content:**
+    * `index.html` (Old) -> `src/pages/Home.tsx`
+    * `roofing.html` (Old) -> `src/pages/Roofing.tsx`
+    * `contact.html` (Old) -> `src/pages/Contact.tsx`
+    * *Note:* Ensure all text/copy from the old HTML files is preserved exactly.
+
+## Phase 3: The "Polish" Pass
+1.  **Typography:** Import `Plus Jakarta Sans` via `@font-source` or Google Fonts.
+2.  **Animations:** Wrap page transitions in `<AnimatePresence>`.
+3.  **Forms:** Rebuild the Contact Form using React State (prepare for API integration).
+
+## Phase 4: Final Polish
+1.  **Dark Mode Audit:** Walk through every page in Dark Mode. Ensure no black text on dark backgrounds.
+2.  **Mobile Check:** Ensure the "Bento Grid" collapses to a vertical stack on mobile.
+3.  **Deployment:** Run `npm run build` and ensure the output matches Vercel standards.
