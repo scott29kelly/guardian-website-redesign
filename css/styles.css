@@ -2003,3 +2003,104 @@ table {
 input, textarea, select, button {
   max-width: 100%;
 }
+
+/* ============================================
+   Mobile Polish Improvements
+   ============================================ */
+
+/* 1.1 & 1.2 - Ask Grace & Avatar Widget Z-Index Fixes */
+@media (max-width: 768px) {
+  .ask-grace-btn {
+    bottom: 140px;
+  }
+
+  .avatar-widget {
+    bottom: 140px;
+  }
+}
+
+/* 1.3 - Mobile Nav Touch Targets */
+@media (max-width: 992px) {
+  .nav-links a {
+    padding: 0.875rem 0;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  .dropdown a {
+    padding: 0.75rem var(--spacing-lg);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* 1.4 - Stats Grid Single Column on Small Screens */
+@media (max-width: 480px) {
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-number {
+    font-size: 2.25rem;
+  }
+}
+
+/* 2.1 - Service Areas 2-Column Tablet Layout */
+@media (max-width: 992px) and (min-width: 577px) {
+  .service-areas-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 2.2 - Video Testimonials Landscape Handling */
+@media (orientation: landscape) and (max-height: 500px) {
+  .video-wrapper video {
+    max-height: 70vh;
+  }
+
+  .video-play-btn {
+    width: 50px;
+    height: 50px;
+  }
+
+  .video-caption {
+    padding: 0.5rem;
+  }
+}
+
+/* 2.3 - Form Inputs Touch-Friendly Sizing */
+@media (max-width: 768px) {
+  .form-control {
+    min-height: 48px;
+    font-size: 16px;
+    padding: 0.875rem var(--spacing-md);
+  }
+
+  textarea.form-control {
+    min-height: 120px;
+  }
+}
+
+/* 2.4 - Process Steps Vertical Connecting Lines */
+@media (max-width: 768px) {
+  .process-steps {
+    position: relative;
+  }
+
+  .process-step {
+    position: relative;
+  }
+
+  .process-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -1.5rem;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 1.5rem;
+    background: var(--light-gray);
+  }
+}
