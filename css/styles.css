@@ -813,18 +813,58 @@ p {
 
 /* Video Testimonials */
 .video-testimonial {
-  position: relative;
   border-radius: 12px;
   overflow: hidden;
   background: var(--primary);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.video-testimonial video {
+.video-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.video-wrapper video {
   width: 100%;
   aspect-ratio: 16/9;
   object-fit: cover;
   display: block;
+}
+
+.video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.video-play-btn svg {
+  margin-left: 3px;
+}
+
+.video-wrapper:hover .video-play-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+.video-testimonial.playing .video-play-btn {
+  display: none;
+}
+
+.video-testimonial.playing .video-wrapper {
+  cursor: default;
 }
 
 .video-caption {

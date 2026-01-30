@@ -433,6 +433,49 @@ function animateCounters() {
 animateCounters();
 
 /**
+ * Video Testimonial Players
+ */
+function initVideoTestimonials() {
+  const videoContainers = document.querySelectorAll('.video-testimonial');
+  if (videoContainers.length === 0) return;
+
+  videoContainers.forEach(container => {
+    const video = container.querySelector('video');
+    const playBtn = container.querySelector('.video-play-btn');
+    const wrapper = container.querySelector('.video-wrapper');
+
+    if (!video || !playBtn) return;
+
+    // Play on button click
+    playBtn.addEventListener('click', () => {
+      video.controls = true;
+      video.play();
+      container.classList.add('playing');
+    });
+
+    // Also play when clicking the video wrapper (before playing)
+    wrapper?.addEventListener('click', (e) => {
+      if (e.target === wrapper || e.target === video) {
+        if (!container.classList.contains('playing')) {
+          video.controls = true;
+          video.play();
+          container.classList.add('playing');
+        }
+      }
+    });
+
+    // Reset when video ends
+    video.addEventListener('ended', () => {
+      video.controls = false;
+      video.currentTime = 0;
+      container.classList.remove('playing');
+    });
+  });
+}
+
+initVideoTestimonials();
+
+/**
  * Testimonial Carousel (if needed)
  */
 function initTestimonialCarousel() {
