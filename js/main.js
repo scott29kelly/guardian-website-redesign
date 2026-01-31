@@ -193,12 +193,45 @@ function initFormValidation() {
       });
       
       if (isValid) {
-        // Show success message
-        showFormSuccess(form);
+        // Submit form via AJAX if it has an action URL
+        const formAction = form.getAttribute('action');
+        if (formAction && formAction.includes('formspree.io')) {
+          submitFormspree(form, formAction);
+        } else {
+          showFormSuccess(form);
+        }
       }
     });
   });
-  
+
+  async function submitFormspree(form, action) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        showFormSuccess(form);
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+      alert('There was a problem sending your message. Please call us at 855-424-5911 or try again later.');
+    }
+  }
+
   function showError(field, message) {
     field.classList.add('error');
     const errorDiv = document.createElement('div');

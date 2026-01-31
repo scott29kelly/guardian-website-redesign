@@ -361,13 +361,15 @@ p {
     width: 80%;
     max-width: 350px;
     height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile browsers */
     background: var(--white);
     flex-direction: column;
     align-items: flex-start;
     padding: var(--spacing-3xl) var(--spacing-xl);
     box-shadow: var(--shadow-xl);
     transition: right var(--transition-normal);
-    z-index: 1001;
+    z-index: 1002; /* Increased to ensure nav is always above overlay */
+    overflow-y: auto; /* Allow scrolling if content is taller than viewport */
   }
   
   .main-nav.active {
@@ -382,6 +384,8 @@ p {
   .nav-links a {
     padding: var(--spacing-md) 0;
     border-bottom: 1px solid var(--light-gray);
+    color: var(--primary); /* Dark blue for better visibility on mobile */
+    font-size: 1.0625rem; /* Slightly larger for mobile readability */
   }
   
   .dropdown {
@@ -401,7 +405,10 @@ p {
   
   .nav-overlay {
     position: fixed;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background: rgba(0,0,0,0.5);
     opacity: 0;
     visibility: hidden;
