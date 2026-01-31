@@ -578,6 +578,95 @@
         width: 100%;
       }
     }
+    
+    /* Dark Mode Overrides for Grace Page */
+    [data-theme="dark"] .grace-page {
+      background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    }
+    
+    [data-theme="dark"] .grace-interface {
+      background: var(--card-bg);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    [data-theme="dark"] .chat-header {
+      border-bottom-color: var(--border-color);
+    }
+    
+    [data-theme="dark"] .chat-header h2 {
+      color: var(--text-primary);
+    }
+    
+    [data-theme="dark"] .chat-header p {
+      color: var(--text-muted);
+    }
+    
+    [data-theme="dark"] .chat-messages {
+      background: var(--bg-secondary);
+    }
+    
+    [data-theme="dark"] .message.assistant {
+      background: var(--card-bg);
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+    
+    [data-theme="dark"] .quick-actions {
+      border-top-color: var(--border-color);
+      background: var(--card-bg);
+    }
+    
+    [data-theme="dark"] .quick-btn {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+    
+    [data-theme="dark"] .quick-btn:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+    
+    [data-theme="dark"] .chat-input {
+      border-top-color: var(--border-color);
+      background: var(--card-bg);
+    }
+    
+    [data-theme="dark"] .chat-input input {
+      background: var(--bg-secondary);
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+    
+    [data-theme="dark"] .chat-input input::placeholder {
+      color: var(--text-muted);
+    }
+    
+    [data-theme="dark"] .feature-card {
+      background: var(--card-bg);
+      border-color: var(--border-color);
+    }
+    
+    [data-theme="dark"] .feature-card h4 {
+      color: var(--text-primary);
+    }
+    
+    [data-theme="dark"] .feature-card p {
+      color: var(--text-muted);
+    }
+    
+    [data-theme="dark"] .grace-features h2 {
+      color: var(--text-primary);
+    }
+    
+    [data-theme="dark"] .grace-features > p {
+      color: var(--text-muted);
+    }
+    
+    @media (max-width: 992px) {
+      [data-theme="dark"] .main-nav {
+        background: var(--bg-primary);
+      }
+    }
   </style>
 </head>
 <body class="grace-page">
