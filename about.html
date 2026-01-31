@@ -8,8 +8,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=118">
+  <link rel="stylesheet" href="css/styles.css?v=119">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%231a3a5c' d='M50 5L5 45h15v50h60V45h15L50 5z'/%3E%3Cpath fill='%23f7941d' d='M50 20L25 42v38h50V42L50 20z'/%3E%3C/svg%3E">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://guardian-website-redesign.vercel.app/about.html">
+  <meta property="og:title" content="About Us | Guardian Roofing & Siding">
+  <meta property="og:description" content="Learn about Guardian Roofing & Siding, a family-owned business founded by Bobby Frehafer. Built on Christian values, integrity, and a commitment to excellence.">
+  <meta property="og:image" content="https://guardian-website-redesign.vercel.app/images/about-hero.webp">
+  <meta property="og:site_name" content="Guardian Roofing & Siding">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Us | Guardian Roofing & Siding">
+  <meta name="twitter:description" content="A family-owned business founded by Bobby Frehafer. Built on Christian values, integrity, and a commitment to excellence.">
+  <meta name="twitter:image" content="https://guardian-website-redesign.vercel.app/images/about-hero.webp">
 </head>
 <body>
   <!-- Top Bar -->
@@ -69,7 +83,7 @@
 
   <!-- Hero Section -->
   <section class="hero hero-small">
-    <div class="hero-bg" style="background-image: url('images/about-hero.jpg');"></div>
+    <div class="hero-bg" style="background-image: url('images/about-hero.webp');"></div>
     <div class="container">
       <div class="hero-content" data-reveal>
         <h1>Our Story</h1>
@@ -83,7 +97,10 @@
     <div class="container">
       <div class="grid grid-2" style="align-items: center; gap: 4rem;">
         <div data-reveal>
-          <img src="images/bobby-frehafer.jpg" alt="Bobby Frehafer, Founder of Guardian Roofing & Siding" style="border-radius: var(--radius-lg); width: 100%;">
+          <picture>
+            <source srcset="images/bobby-frehafer.webp" type="image/webp">
+            <img src="images/bobby-frehafer.jpg" alt="Bobby Frehafer, Founder of Guardian Roofing & Siding" style="border-radius: var(--radius-lg); width: 100%;" loading="lazy">
+          </picture>
         </div>
         <div data-reveal>
           <h2>Meet Bobby Frehafer</h2>
@@ -341,6 +358,6 @@
   </div>
 
   <script src="js/main.js"></script>
-<a href="grace.html" class="ask-grace-btn"><img src="images/avatar-grace.jpg" alt="Grace" class="avatar"><span>Ask Grace</span><span class="pulse"></span></a>
+<a href="grace.html" class="ask-grace-btn"><img src="images/avatar-grace.webp" alt="Grace AI Assistant" class="avatar"><span>Ask Grace</span><span class="pulse"></span></a>
 </body>
 </html>
