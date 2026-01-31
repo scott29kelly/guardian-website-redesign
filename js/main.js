@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize all components
+  initThemeToggle();
   initMobileNav();
   initStickyHeader();
   initScrollReveal();
@@ -12,6 +13,55 @@ document.addEventListener('DOMContentLoaded', function() {
   initFormValidation();
   initGalleryLightbox();
 });
+
+/**
+ * Theme Toggle (Dark/Light Mode)
+ */
+function initThemeToggle() {
+  // Check for saved theme preference or default to system preference
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  // Set initial theme
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  } else if (systemPrefersDark) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+  
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    }
+  });
+  
+  // Handle toggle clicks
+  const toggleButtons = document.querySelectorAll('.theme-toggle');
+  toggleButtons.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // Announce change for accessibility
+      const announcement = document.createElement('div');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.setAttribute('aria-atomic', 'true');
+      announcement.className = 'sr-only';
+      announcement.textContent = `Switched to ${newTheme} mode`;
+      document.body.appendChild(announcement);
+      setTimeout(() => announcement.remove(), 1000);
+    });
+  });
+}
+
+// Helper to get current theme
+function getCurrentTheme() {
+  return document.documentElement.getAttribute('data-theme') || 'light';
+}
 
 /**
  * Mobile Navigation Toggle
