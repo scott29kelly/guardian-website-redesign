@@ -4,7 +4,7 @@
 
 /* CSS Variables */
 :root {
-  /* Colors */
+  /* Colors - Light Mode (Default) */
   --primary: #1a3a5c;
   --primary-dark: #122840;
   --primary-light: #2a5a8c;
@@ -19,6 +19,18 @@
   --medium-gray: #6c757d;
   --dark-gray: #343a40;
   --black: #212529;
+  
+  /* Semantic Colors (theme-aware) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #212529;
+  --text-secondary: #343a40;
+  --text-muted: #6c757d;
+  --border-color: #e9ecef;
+  --card-bg: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --header-border: rgba(0, 0, 0, 0.05);
   
   /* Status */
   --success: #28a745;
@@ -61,6 +73,26 @@
   --container-narrow: 800px;
 }
 
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --card-bg: #1e293b;
+  --header-bg: rgba(15, 23, 42, 0.9);
+  --header-border: rgba(255, 255, 255, 0.05);
+  
+  /* Adjusted shadows for dark mode */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.5);
+  --shadow-xl: 0 20px 40px rgba(0,0,0,0.6);
+}
+
 /* Reset & Base */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -76,9 +108,10 @@ html {
 body {
   font-family: var(--font-primary);
   line-height: 1.6;
-  color: var(--dark-gray);
-  background: var(--white);
+  color: var(--text-primary);
+  background: var(--bg-primary);
   -webkit-font-smoothing: antialiased;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
 img {
@@ -165,17 +198,22 @@ p {
   color: var(--accent);
 }
 
+/* Glassmorphism Header */
 .header {
-  background: var(--white);
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: var(--shadow-md);
-  transition: box-shadow var(--transition-normal);
+  box-shadow: 0 1px 0 var(--header-border);
+  transition: all var(--transition-normal);
+  border-bottom: 1px solid var(--header-border);
 }
 
 .header.scrolled {
   box-shadow: var(--shadow-lg);
+  background: var(--header-bg);
 }
 
 .header .container {
@@ -2174,4 +2212,882 @@ input, textarea, select, button {
     height: 1.5rem;
     background: var(--light-gray);
   }
+}
+
+/* ============================================
+   Theme Toggle
+   ============================================ */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  color: var(--white);
+  transform: rotate(15deg);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  transition: all var(--transition-normal);
+}
+
+.theme-toggle .sun-icon {
+  display: block;
+}
+
+.theme-toggle .moon-icon {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle .sun-icon {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle .moon-icon {
+  display: block;
+}
+
+/* ============================================
+   Dark Mode Component Overrides
+   ============================================ */
+[data-theme="dark"] .top-bar {
+  background: #0c1524;
+}
+
+[data-theme="dark"] .logo-text {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .logo-text .logo-tagline {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .nav-links a {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a.active {
+  color: var(--accent);
+}
+
+[data-theme="dark"] .dropdown {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .dropdown a:hover {
+  background: var(--bg-tertiary);
+}
+
+[data-theme="dark"] h1, 
+[data-theme="dark"] h2, 
+[data-theme="dark"] h3, 
+[data-theme="dark"] h4, 
+[data-theme="dark"] h5, 
+[data-theme="dark"] h6 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .section-header p {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .card-text {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .service-card .icon {
+  background: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .section-gray {
+  background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .social-proof {
+  background: var(--bg-secondary);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .proof-item {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .stat-label {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .process-step p {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .process-step::after {
+  background: var(--border-color);
+}
+
+[data-theme="dark"] .testimonial-card blockquote {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .testimonial-card .author-info strong {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .testimonial-card .author-info span {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .form-control {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .form-control:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(247, 148, 29, 0.15);
+}
+
+[data-theme="dark"] .form-label {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .area-card {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .area-card li {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .faq-question {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .faq-answer p {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .faq-item {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .main-nav {
+  background: var(--bg-primary);
+}
+
+[data-theme="dark"] .nav-links a {
+  border-bottom-color: var(--border-color);
+}
+
+/* ============================================
+   Trust Ticker (Infinite Scroll Badges)
+   ============================================ */
+.trust-ticker {
+  background: var(--bg-secondary);
+  padding: var(--spacing-lg) 0;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.trust-ticker::before,
+.trust-ticker::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.trust-ticker::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-secondary), transparent);
+}
+
+.trust-ticker::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-secondary), transparent);
+}
+
+.ticker-track {
+  display: flex;
+  gap: var(--spacing-3xl);
+  animation: ticker-scroll 30s linear infinite;
+  width: max-content;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  white-space: nowrap;
+  transition: all var(--transition-normal);
+}
+
+.ticker-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.ticker-item-icon {
+  font-size: 1.5rem;
+}
+
+.ticker-item-text {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.ticker-item-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================
+   Bento Grid Services
+   ============================================ */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.bento-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.bento-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--accent);
+}
+
+/* Large card - spans both rows */
+.bento-card--large {
+  grid-row: span 2;
+  min-height: 450px;
+}
+
+.bento-card--small {
+  min-height: 215px;
+}
+
+.bento-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform var(--transition-slow);
+}
+
+.bento-card:hover .bento-card-bg {
+  transform: scale(1.05);
+}
+
+.bento-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+  transition: background var(--transition-normal);
+}
+
+.bento-card:hover .bento-card-overlay {
+  background: linear-gradient(to top, rgba(26, 58, 92, 0.95) 0%, rgba(26, 58, 92, 0.5) 50%, rgba(26, 58, 92, 0.2) 100%);
+}
+
+.bento-card-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--spacing-xl);
+  color: var(--white);
+}
+
+.bento-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-md);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.bento-card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--spacing-sm);
+}
+
+.bento-card--small .bento-card-title {
+  font-size: 1.35rem;
+}
+
+.bento-card-desc {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-bottom: var(--spacing-md);
+  line-height: 1.6;
+}
+
+.bento-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: gap var(--transition-normal);
+}
+
+.bento-card:hover .bento-card-cta {
+  gap: var(--spacing-md);
+}
+
+.bento-card-cta svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-normal);
+}
+
+.bento-card:hover .bento-card-cta svg {
+  transform: translateX(4px);
+}
+
+/* Bento card special features */
+.bento-card-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.bento-feature {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  
+  .bento-card--large {
+    grid-row: span 1;
+    min-height: 300px;
+  }
+  
+  .bento-card--small {
+    min-height: 250px;
+  }
+}
+
+/* ============================================
+   Animated Process Timeline
+   ============================================ */
+.process-timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-xl) 0;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 30px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.timeline-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--primary) 100%);
+  border-radius: 2px;
+  transition: height 0.1s ease-out;
+  box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(247, 148, 29, 0.3);
+}
+
+.timeline-step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl) 0;
+  position: relative;
+  opacity: 0.4;
+  transform: translateX(-10px);
+  transition: all var(--transition-normal);
+}
+
+.timeline-step.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.timeline-node {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: var(--bg-secondary);
+  border: 4px solid var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  z-index: 1;
+  transition: all var(--transition-normal);
+}
+
+.timeline-step.active .timeline-node {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+  box-shadow: 0 0 20px rgba(247, 148, 29, 0.4);
+  animation: node-pulse 2s ease-in-out infinite;
+}
+
+@keyframes node-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(247, 148, 29, 0.4); }
+  50% { box-shadow: 0 0 30px rgba(247, 148, 29, 0.6); }
+}
+
+.timeline-content {
+  flex: 1;
+  padding-top: var(--spacing-md);
+}
+
+.timeline-content h4 {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+}
+
+.timeline-step.active .timeline-content h4 {
+  color: var(--accent);
+}
+
+.timeline-content p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+@media (max-width: 576px) {
+  .timeline-line {
+    left: 20px;
+  }
+  
+  .timeline-node {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+  
+  .timeline-step {
+    gap: var(--spacing-md);
+  }
+}
+
+/* ============================================
+   Micro-interactions & Button Effects
+   ============================================ */
+/* Button Ripple Effect */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+  opacity: 0;
+}
+
+.btn:active::after {
+  width: 300px;
+  height: 300px;
+  opacity: 0;
+  transition: 0s;
+}
+
+/* Enhanced card hover */
+.card {
+  will-change: transform;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, transparent 40%, rgba(247, 148, 29, 0.05) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Staggered reveal for grid children */
+[data-reveal].revealed > * {
+  animation: staggerFadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+[data-reveal].revealed > *:nth-child(1) { animation-delay: 0s; }
+[data-reveal].revealed > *:nth-child(2) { animation-delay: 0.1s; }
+[data-reveal].revealed > *:nth-child(3) { animation-delay: 0.2s; }
+[data-reveal].revealed > *:nth-child(4) { animation-delay: 0.3s; }
+[data-reveal].revealed > *:nth-child(5) { animation-delay: 0.4s; }
+[data-reveal].revealed > *:nth-child(6) { animation-delay: 0.5s; }
+
+@keyframes staggerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Link hover effects */
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-normal);
+}
+
+.nav-links a:hover::before,
+.nav-links a.active::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ============================================
+   Grace Inline Widget (Floating Chat Panel)
+   ============================================ */
+.grace-widget {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  z-index: 1001;
+  font-family: var(--font-primary);
+}
+
+.grace-widget-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem 0.75rem 0.75rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border: none;
+  border-radius: 50px;
+  color: var(--white);
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(26, 58, 92, 0.4);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.grace-widget-trigger:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(26, 58, 92, 0.5), 0 0 20px rgba(247, 148, 29, 0.2);
+}
+
+.grace-widget-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  object-fit: cover;
+}
+
+.grace-widget-text {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.grace-widget-status {
+  width: 8px;
+  height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Grace Chat Panel */
+.grace-panel {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 380px;
+  max-height: 500px;
+  background: var(--card-bg);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid var(--border-color);
+}
+
+.grace-widget.active .grace-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.grace-panel-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--white);
+}
+
+.grace-panel-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  object-fit: cover;
+}
+
+.grace-panel-info h4 {
+  color: var(--white);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.grace-panel-info span {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.grace-panel-close {
+  margin-left: auto;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: var(--white);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+}
+
+.grace-panel-close:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.grace-panel-body {
+  padding: 1rem;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.grace-message {
+  background: var(--bg-secondary);
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.grace-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.grace-quick-btn {
+  padding: 0.5rem 1rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.grace-quick-btn:hover {
+  background: var(--accent);
+  color: var(--white);
+  border-color: var(--accent);
+}
+
+.grace-panel-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.grace-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  transition: border-color var(--transition-fast);
+}
+
+.grace-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.grace-input::placeholder {
+  color: var(--text-muted);
+}
+
+.grace-send {
+  padding: 0.75rem 1rem;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--white);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.grace-send:hover {
+  background: var(--accent-dark);
+}
+
+@media (max-width: 768px) {
+  .grace-widget {
+    bottom: 140px;
+    right: 16px;
+  }
+  
+  .grace-panel {
+    width: calc(100vw - 32px);
+    max-width: 360px;
+    right: 0;
+    bottom: 60px;
+  }
+  
+  .grace-widget-text {
+    display: none;
+  }
+  
+  .grace-widget-trigger {
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    justify-content: center;
+  }
+  
+  .grace-widget-avatar {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Hide default ask grace button when widget is active */
+body:not(.grace-page) .ask-grace-btn {
+  display: none;
 }
