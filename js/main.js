@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize all components
+  initThemeToggle();
   initMobileNav();
   initStickyHeader();
   initScrollReveal();
@@ -11,7 +12,282 @@ document.addEventListener('DOMContentLoaded', function() {
   initSmoothScroll();
   initFormValidation();
   initGalleryLightbox();
+  initProcessTimeline();
+  initGraceWidget();
 });
+
+/**
+ * Theme Toggle (Dark/Light Mode)
+ */
+function initThemeToggle() {
+  // Check for saved theme preference or system preference
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  // Apply initial theme
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  } else if (systemPrefersDark) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+  
+  // Add theme toggle button to header if it doesn't exist
+  const headerCta = document.querySelector('.header-cta');
+  if (headerCta && !document.querySelector('.theme-toggle')) {
+    const themeToggle = document.createElement('button');
+    themeToggle.className = 'theme-toggle';
+    themeToggle.setAttribute('aria-label', 'Toggle dark mode');
+    themeToggle.innerHTML = `
+      <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    `;
+    headerCta.insertBefore(themeToggle, headerCta.firstChild);
+    
+    themeToggle.addEventListener('click', toggleTheme);
+  }
+  
+  // Listen for system preference changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    }
+  });
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+}
+
+/**
+ * Grace Inline Widget
+ */
+function initGraceWidget() {
+  // Don't inject on grace.html page
+  if (document.body.classList.contains('grace-page')) return;
+  
+  // Create widget HTML
+  const widget = document.createElement('div');
+  widget.className = 'grace-widget';
+  widget.innerHTML = `
+    <button class="grace-widget-trigger" aria-label="Chat with Grace">
+      <img src="images/avatar-grace.webp" alt="Grace AI" class="grace-widget-avatar" onerror="this.src='images/avatar-grace.jpg'">
+      <span class="grace-widget-text">Ask Grace</span>
+      <span class="grace-widget-status"></span>
+    </button>
+    
+    <div class="grace-panel">
+      <div class="grace-panel-header">
+        <img src="images/avatar-grace.webp" alt="Grace AI" class="grace-panel-avatar" onerror="this.src='images/avatar-grace.jpg'">
+        <div class="grace-panel-info">
+          <h4>Grace</h4>
+          <span>Your Insurance Claims Assistant</span>
+        </div>
+        <button class="grace-panel-close" aria-label="Close chat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="grace-panel-body">
+        <div class="grace-message">
+          Hi! I'm Grace, your virtual assistant. I can help you understand the insurance claims process, schedule inspections, or answer questions about our roofing and siding services. How can I help you today?
+        </div>
+        
+        <div class="grace-quick-actions">
+          <button class="grace-quick-btn" data-action="inspection">Schedule Inspection</button>
+          <button class="grace-quick-btn" data-action="claims">Insurance Claims Help</button>
+          <button class="grace-quick-btn" data-action="quote">Get a Quote</button>
+          <button class="grace-quick-btn" data-action="services">Our Services</button>
+        </div>
+      </div>
+      
+      <div class="grace-panel-footer">
+        <input type="text" class="grace-input" placeholder="Type your message..." aria-label="Type your message">
+        <button class="grace-send">Send</button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(widget);
+  
+  // Widget interactions
+  const trigger = widget.querySelector('.grace-widget-trigger');
+  const closeBtn = widget.querySelector('.grace-panel-close');
+  const input = widget.querySelector('.grace-input');
+  const sendBtn = widget.querySelector('.grace-send');
+  const quickBtns = widget.querySelectorAll('.grace-quick-btn');
+  const panelBody = widget.querySelector('.grace-panel-body');
+  
+  trigger.addEventListener('click', () => {
+    widget.classList.toggle('active');
+    if (widget.classList.contains('active')) {
+      input.focus();
+    }
+  });
+  
+  closeBtn.addEventListener('click', () => {
+    widget.classList.remove('active');
+  });
+  
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && widget.classList.contains('active')) {
+      widget.classList.remove('active');
+    }
+  });
+  
+  // Quick action buttons
+  const quickActions = {
+    inspection: "I'd like to schedule a free roof inspection.",
+    claims: "Can you explain how the insurance claims process works?",
+    quote: "I'd like to get a quote for roofing/siding work.",
+    services: "What services does Guardian offer?"
+  };
+  
+  quickBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const action = btn.dataset.action;
+      sendMessage(quickActions[action] || btn.textContent);
+    });
+  });
+  
+  // Send message
+  sendBtn.addEventListener('click', () => sendMessage(input.value));
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage(input.value);
+  });
+  
+  async function sendMessage(message) {
+    if (!message.trim()) return;
+    
+    // Add user message
+    const userMsg = document.createElement('div');
+    userMsg.className = 'grace-message';
+    userMsg.style.background = 'var(--accent)';
+    userMsg.style.color = 'var(--white)';
+    userMsg.style.marginLeft = 'auto';
+    userMsg.style.maxWidth = '85%';
+    userMsg.textContent = message;
+    panelBody.appendChild(userMsg);
+    
+    // Clear input
+    input.value = '';
+    
+    // Hide quick actions after first message
+    const quickActionsEl = panelBody.querySelector('.grace-quick-actions');
+    if (quickActionsEl) quickActionsEl.style.display = 'none';
+    
+    // Scroll to bottom
+    panelBody.scrollTop = panelBody.scrollHeight;
+    
+    // Show typing indicator
+    const typing = document.createElement('div');
+    typing.className = 'grace-message';
+    typing.innerHTML = '<em>Grace is typing...</em>';
+    panelBody.appendChild(typing);
+    panelBody.scrollTop = panelBody.scrollHeight;
+    
+    try {
+      // Call the chat API
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message })
+      });
+      
+      const data = await response.json();
+      
+      // Remove typing indicator
+      typing.remove();
+      
+      // Add Grace's response
+      const graceMsg = document.createElement('div');
+      graceMsg.className = 'grace-message';
+      graceMsg.textContent = data.response || data.message || "I'm sorry, I couldn't process that request. Please try again or call us at 855-424-5911.";
+      panelBody.appendChild(graceMsg);
+      panelBody.scrollTop = panelBody.scrollHeight;
+      
+    } catch (error) {
+      typing.remove();
+      const errorMsg = document.createElement('div');
+      errorMsg.className = 'grace-message';
+      errorMsg.textContent = "I'm having trouble connecting right now. For immediate assistance, please call us at 855-424-5911.";
+      panelBody.appendChild(errorMsg);
+      panelBody.scrollTop = panelBody.scrollHeight;
+    }
+  }
+}
+
+/**
+ * Animated Process Timeline
+ */
+function initProcessTimeline() {
+  const timeline = document.querySelector('.process-timeline');
+  if (!timeline) return;
+  
+  const progress = timeline.querySelector('.timeline-progress');
+  const steps = timeline.querySelectorAll('.timeline-step');
+  
+  if (!progress || steps.length === 0) return;
+  
+  function updateTimeline() {
+    const timelineRect = timeline.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    
+    // Calculate how much of the timeline is in view
+    const timelineTop = timelineRect.top;
+    const timelineHeight = timelineRect.height;
+    
+    // Start animating when timeline enters viewport
+    if (timelineTop < windowHeight && timelineTop + timelineHeight > 0) {
+      // Calculate scroll progress through the timeline
+      const scrollStart = windowHeight * 0.7; // Start when 70% in view
+      const scrollEnd = windowHeight * 0.3; // End when 30% from top
+      
+      const scrollProgress = Math.max(0, Math.min(1, 
+        (scrollStart - timelineTop) / (scrollStart - scrollEnd + timelineHeight * 0.8)
+      ));
+      
+      // Update progress bar height
+      progress.style.height = `${scrollProgress * 100}%`;
+      
+      // Update step states
+      steps.forEach((step, index) => {
+        const stepThreshold = (index + 0.5) / steps.length;
+        if (scrollProgress >= stepThreshold) {
+          step.classList.add('active');
+        } else {
+          step.classList.remove('active');
+        }
+      });
+    }
+  }
+  
+  // Initial check
+  updateTimeline();
+  
+  // Update on scroll
+  window.addEventListener('scroll', updateTimeline, { passive: true });
+  window.addEventListener('resize', updateTimeline, { passive: true });
+}
 
 /**
  * Mobile Navigation Toggle
