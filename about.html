@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=121">
+  <link rel="stylesheet" href="css/styles.css?v=122">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%231a3a5c' d='M50 5L5 45h15v50h60V45h15L50 5z'/%3E%3Cpath fill='%23f7941d' d='M50 20L25 42v38h50V42L50 20z'/%3E%3C/svg%3E">
 
   <!-- Google Analytics 4 -->
@@ -93,7 +93,7 @@
 
   <!-- Hero Section -->
   <section class="hero hero-small">
-    <div class="hero-bg" style="background-image: url('images/about-hero.webp');"></div>
+    <div class="hero-bg" style="background-image: url('images/hero-roofing.webp');"></div>
     <div class="container">
       <div class="hero-content" data-reveal>
         <h1>Our Story</h1>
@@ -102,27 +102,6 @@
     </div>
   </section>
 
-  <!-- Founder Section -->
-  <section class="section">
-    <div class="container">
-      <div class="grid grid-2" style="align-items: center; gap: 4rem;">
-        <div data-reveal>
-          <picture>
-            <source srcset="images/bobby-frehafer.webp" type="image/webp">
-            <img src="images/bobby-frehafer.jpg" alt="Bobby Frehafer, Founder of Guardian Roofing & Siding" style="border-radius: var(--radius-lg); width: 100%;" loading="lazy">
-          </picture>
-        </div>
-        <div data-reveal>
-          <h2>Meet Bobby Frehafer</h2>
-          <p class="text-accent" style="font-weight: 600; font-size: 1.125rem;">Founder & Owner</p>
-          <p>Bobby Frehafer founded Guardian Roofing & Siding with a simple mission: to treat every customer the way he'd want to be treated. Growing up in the Southampton, PA area, Bobby learned the value of hard work, honesty, and standing behind your word.</p>
-          <p>After years of working in the roofing industry, Bobby saw too many homeowners being taken advantage of – especially when it came to storm damage and insurance claims. He started Guardian to be different. No high-pressure sales. No cutting corners. Just honest work at a fair price.</p>
-          <p>"We're not here to make a quick buck. We're here to build relationships and protect homes in our community. When you work with Guardian, you're working with family."</p>
-          <p style="font-weight: 600; color: var(--primary);">— Bobby Frehafer</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Values Section -->
   <section class="section section-gray">
@@ -173,7 +152,7 @@
   </section>
 
   <!-- Why We're Different -->
-  <section class="section">
+  <section class="section section-dark">
     <div class="container">
       <div class="section-header" data-reveal>
         <h2>Why We're Different</h2>
@@ -262,30 +241,58 @@
         <h2>Our Team</h2>
         <p>The people behind Guardian's reputation.</p>
       </div>
-      
+
       <div class="grid grid-4" data-reveal>
-        <div style="text-align: center;">
-          <div style="width: 150px; height: 150px; border-radius: 50%; background: var(--light-gray); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 3rem;">👨‍💼</div>
+        <!-- Bobby Frehafer - Founder -->
+        <div class="team-member">
+          <picture>
+            <source srcset="images/bobby-frehafer.webp" type="image/webp">
+            <img src="images/bobby-frehafer.jpg" alt="Bobby Frehafer" class="team-photo" loading="lazy">
+          </picture>
           <h4>Bobby Frehafer</h4>
-          <p class="text-small" style="color: var(--accent);">Founder & Owner</p>
+          <p class="team-title">Founder & Owner</p>
         </div>
-        
-        <div style="text-align: center;">
-          <div style="width: 150px; height: 150px; border-radius: 50%; background: var(--light-gray); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 3rem;">👷</div>
+
+        <!-- Mike Thompson - Project Manager -->
+        <div class="team-member">
+          <div class="team-photo-placeholder">MT</div>
           <h4>Mike Thompson</h4>
-          <p class="text-small" style="color: var(--accent);">Lead Project Manager</p>
+          <p class="team-title">Project Manager</p>
         </div>
-        
-        <div style="text-align: center;">
-          <div style="width: 150px; height: 150px; border-radius: 50%; background: var(--light-gray); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 3rem;">👨‍🔧</div>
-          <h4>Carlos Rodriguez</h4>
-          <p class="text-small" style="color: var(--accent);">Crew Foreman</p>
-        </div>
-        
-        <div style="text-align: center;">
-          <div style="width: 150px; height: 150px; border-radius: 50%; background: var(--light-gray); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 3rem;">👩‍💼</div>
+
+        <!-- Sarah Mitchell - Office Administrator -->
+        <div class="team-member">
+          <div class="team-photo-placeholder">SM</div>
           <h4>Sarah Mitchell</h4>
-          <p class="text-small" style="color: var(--accent);">Customer Relations</p>
+          <p class="team-title">Office Administrator</p>
+        </div>
+
+        <!-- James Carter - Sales Consultant -->
+        <div class="team-member">
+          <div class="team-photo-placeholder">JC</div>
+          <h4>James Carter</h4>
+          <p class="team-title">Sales Consultant</p>
+        </div>
+
+        <!-- David Chen - Sales Consultant -->
+        <div class="team-member">
+          <div class="team-photo-placeholder">DC</div>
+          <h4>David Chen</h4>
+          <p class="team-title">Sales Consultant</p>
+        </div>
+
+        <!-- Marcus Williams - Sales Consultant -->
+        <div class="team-member">
+          <div class="team-photo-placeholder">MW</div>
+          <h4>Marcus Williams</h4>
+          <p class="team-title">Sales Consultant</p>
+        </div>
+
+        <!-- Emily Rodriguez - Sales Consultant -->
+        <div class="team-member">
+          <div class="team-photo-placeholder">ER</div>
+          <h4>Emily Rodriguez</h4>
+          <p class="team-title">Sales Consultant</p>
         </div>
       </div>
     </div>
