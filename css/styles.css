@@ -206,17 +206,28 @@ p {
 
 .logo-text {
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.25rem;
   color: var(--primary);
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
-.logo-text span {
+.logo-text .logo-name {
   display: block;
-  font-size: 0.75rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.logo-text .logo-name-sub {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.logo-text .logo-tagline {
+  display: block;
+  font-size: 0.7rem;
   font-weight: 400;
   color: var(--medium-gray);
+  margin-top: 2px;
 }
 
 .nav-toggle {
