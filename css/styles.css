@@ -2051,6 +2051,305 @@ select.form-control {
 }
 
 /* ============================================
+   Grace Inline Chat Widget
+   ============================================ */
+.grace-widget {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  z-index: 998;
+}
+
+.grace-widget-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.25rem;
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(26, 58, 92, 0.4);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.grace-widget-trigger:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(26, 58, 92, 0.5), 0 0 20px rgba(247, 148, 29, 0.3);
+}
+
+.grace-widget-trigger .avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  object-fit: cover;
+}
+
+.grace-widget-trigger .pulse {
+  width: 8px;
+  height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Chat Panel */
+.grace-chat-panel {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  width: 380px;
+  max-height: 600px;
+  background: var(--card-bg);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 999;
+  overflow: hidden;
+}
+
+.grace-chat-panel.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.grace-chat-header {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+  color: white;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.grace-chat-header img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  object-fit: cover;
+}
+
+.grace-chat-header-info {
+  flex: 1;
+}
+
+.grace-chat-header-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.grace-chat-header-info h4 .status-dot {
+  width: 8px;
+  height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.grace-chat-header-info span {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.grace-chat-close {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.grace-chat-close:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.grace-chat-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--bg-secondary);
+  max-height: 300px;
+  min-height: 200px;
+}
+
+.grace-message {
+  max-width: 85%;
+  padding: 0.875rem 1rem;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.grace-message.assistant {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.grace-message.user {
+  background: var(--brand-primary);
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.grace-chat-quick {
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--card-bg);
+}
+
+.grace-quick-btn {
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.grace-quick-btn:hover {
+  background: var(--card-bg);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.grace-chat-input {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card-bg);
+}
+
+.grace-chat-input input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.grace-chat-input input:focus {
+  border-color: var(--accent);
+}
+
+.grace-chat-input input::placeholder {
+  color: var(--text-muted);
+}
+
+.grace-chat-input button {
+  padding: 0.75rem 1rem;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-md);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.grace-chat-input button:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+}
+
+.grace-chat-input button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.grace-chat-footer {
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  background: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+}
+
+.grace-chat-footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .grace-widget {
+    bottom: 110px;
+    right: 16px;
+  }
+  
+  .grace-widget-trigger {
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .grace-widget-trigger .avatar {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .grace-chat-panel {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-height: 85vh;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
+  
+  .grace-chat-messages {
+    max-height: 45vh;
+  }
+}
+
+/* Hide widget on grace.html */
+.grace-page .grace-widget {
+  display: none;
+}
+
+/* ============================================
    Mobile Optimization Fixes
    ============================================ */
 
