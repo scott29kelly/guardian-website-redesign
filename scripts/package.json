@@ -1,0 +1,13 @@
+{
+  "name": "guardian-scripts",
+  "version": "1.0.0",
+  "description": "Image generation scripts for Guardian Roofing website",
+  "type": "module",
+  "scripts": {
+    "generate-images": "node generate-project-images.js"
+  },
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "dotenv": "^16.6.1"
+  }
+}
