@@ -15,9 +15,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Load environment variables from parent directory's .env.local
+// Environment variables from Cloud Agent secrets take precedence
 dotenv.config({ path: path.join(__dirname, "..", ".env.local") });
 
-const API_KEY = process.env.Gemini_API_KEY;
+// Check both Gemini_API_KEY and GEMINI_API_KEY (case variations)
+const API_KEY = process.env.Gemini_API_KEY || process.env.GEMINI_API_KEY;
 const OUTPUT_DIR = path.join(__dirname, "..", "images");
 
 // Hero image generation configurations
@@ -176,8 +178,12 @@ async function main() {
 
   // Verify API key
   if (!API_KEY || API_KEY === "your_api_key_here") {
-    console.error("\n❌ ERROR: Gemini_API_KEY not found or not set in .env.local");
-    console.error("   Get a free API key at: https://aistudio.google.com/app/apikey");
+    console.error("\n❌ ERROR: Gemini_API_KEY not found or not set");
+    console.error("   Options:");
+    console.error("   1. Set in .env.local: Gemini_API_KEY=your_key_here");
+    console.error("   2. Set as environment variable: export Gemini_API_KEY=your_key_here");
+    console.error("   3. For Cloud Agents: Add to Cursor Dashboard > Cloud Agents > Secrets");
+    console.error("\n   Get a free API key at: https://aistudio.google.com/app/apikey");
     process.exit(1);
   }
 
