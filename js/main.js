@@ -136,6 +136,31 @@ function initGraceWidget() {
   const quickBtns = widget.querySelectorAll('.grace-quick-btn');
   const panelBody = widget.querySelector('.grace-panel-body');
   
+  // Conversation history for API context
+  let conversationHistory = [];
+  
+  // Demo responses (fallback when API is not available)
+  const demoResponses = {
+    'storm': "Storm damage isn't always visible from the ground—hail can crack shingles and wind can loosen flashing. I'd recommend scheduling a free inspection so one of our experts can give you a thorough assessment. Would you like to schedule one?",
+    'insurance': "Great question! Your homeowner's insurance typically covers sudden storm damage. When you file a claim, an adjuster assesses the damage and approves repairs minus your deductible. Guardian handles everything FOR you—we document the damage, file the paperwork, and meet with the adjuster.",
+    'pay': "Most of our customers pay only their deductible—typically between $500 and $2,500. Insurance covers the full cost of repairs minus that amount. We never ask for payment until your claim is approved!",
+    'schedule': "I'd be happy to help! You can call us at 855-424-5911 or visit our contact page to schedule a free inspection. We're available Monday through Saturday.",
+    'quote': "I'd be happy to help you get a quote! For the most accurate estimate, I recommend scheduling a free inspection. You can call us at 855-424-5911 or fill out the form on our contact page.",
+    'services': "Guardian offers comprehensive exterior services: roof replacement and repairs, vinyl and fiber cement siding, gutters and downspouts, and storm damage restoration. We're certified by GAF and CertainTeed, and we specialize in helping homeowners navigate insurance claims.",
+    'default': "That's a great question! To give you the most accurate answer, I'd recommend scheduling a free inspection or calling us at 855-424-5911. Is there anything specific about the claims process I can help clarify?"
+  };
+  
+  function getDemoResponse(message) {
+    const lower = message.toLowerCase();
+    if (lower.includes('storm') || lower.includes('damage')) return demoResponses['storm'];
+    if (lower.includes('insurance') || lower.includes('claim')) return demoResponses['insurance'];
+    if (lower.includes('pay') || lower.includes('cost') || lower.includes('price') || lower.includes('deductible')) return demoResponses['pay'];
+    if (lower.includes('schedule') || lower.includes('inspection') || lower.includes('appointment')) return demoResponses['schedule'];
+    if (lower.includes('quote') || lower.includes('estimate')) return demoResponses['quote'];
+    if (lower.includes('service') || lower.includes('offer') || lower.includes('do you do')) return demoResponses['services'];
+    return demoResponses['default'];
+  }
+  
   trigger.addEventListener('click', () => {
     widget.classList.toggle('active');
     if (widget.classList.contains('active')) {
@@ -178,7 +203,7 @@ function initGraceWidget() {
   async function sendMessage(message) {
     if (!message.trim()) return;
     
-    // Add user message
+    // Add user message to UI
     const userMsg = document.createElement('div');
     userMsg.className = 'grace-message';
     userMsg.style.background = 'var(--accent)';
@@ -187,6 +212,9 @@ function initGraceWidget() {
     userMsg.style.maxWidth = '85%';
     userMsg.textContent = message;
     panelBody.appendChild(userMsg);
+    
+    // Add to conversation history
+    conversationHistory.push({ role: 'user', content: message });
     
     // Clear input
     input.value = '';
@@ -206,31 +234,47 @@ function initGraceWidget() {
     panelBody.scrollTop = panelBody.scrollHeight;
     
     try {
-      // Call the chat API
+      // Call the chat API with conversation history
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message })
+        body: JSON.stringify({ messages: conversationHistory })
       });
+      
+      if (!response.ok) {
+        throw new Error('API error');
+      }
       
       const data = await response.json();
       
       // Remove typing indicator
       typing.remove();
       
-      // Add Grace's response
+      // Get response text
+      const responseText = data.response || data.message || getDemoResponse(message);
+      
+      // Add to conversation history
+      conversationHistory.push({ role: 'assistant', content: responseText });
+      
+      // Add Grace's response to UI
       const graceMsg = document.createElement('div');
       graceMsg.className = 'grace-message';
-      graceMsg.textContent = data.response || data.message || "I'm sorry, I couldn't process that request. Please try again or call us at 855-424-5911.";
+      graceMsg.textContent = responseText;
       panelBody.appendChild(graceMsg);
       panelBody.scrollTop = panelBody.scrollHeight;
       
     } catch (error) {
+      // Remove typing indicator
       typing.remove();
-      const errorMsg = document.createElement('div');
-      errorMsg.className = 'grace-message';
-      errorMsg.textContent = "I'm having trouble connecting right now. For immediate assistance, please call us at 855-424-5911.";
-      panelBody.appendChild(errorMsg);
+      
+      // Fall back to demo responses
+      const fallbackResponse = getDemoResponse(message);
+      conversationHistory.push({ role: 'assistant', content: fallbackResponse });
+      
+      const graceMsg = document.createElement('div');
+      graceMsg.className = 'grace-message';
+      graceMsg.textContent = fallbackResponse;
+      panelBody.appendChild(graceMsg);
       panelBody.scrollTop = panelBody.scrollHeight;
     }
   }
@@ -838,194 +882,3 @@ function initTestimonialCarousel() {
 }
 
 initTestimonialCarousel();
-
-/**
- * Grace Inline Chat Widget
- * Opens a chat panel instead of navigating to grace.html
- */
-function initGraceWidget() {
-  // Don't initialize on the grace.html page itself
-  if (document.body.classList.contains('grace-page')) return;
-  
-  // Check if widget already exists
-  if (document.querySelector('.grace-widget')) return;
-  
-  // Create widget HTML
-  const widgetHTML = `
-    <div class="grace-widget">
-      <button class="grace-widget-trigger" aria-label="Chat with Grace">
-        <img src="images/avatar-grace.webp" alt="Grace" class="avatar">
-        <span>Ask Grace</span>
-        <span class="pulse"></span>
-      </button>
-      
-      <div class="grace-chat-panel" id="graceChatPanel">
-        <div class="grace-chat-header">
-          <img src="images/avatar-grace.webp" alt="Grace">
-          <div class="grace-chat-header-info">
-            <h4><span class="status-dot"></span> Grace</h4>
-            <span>Insurance Claims Specialist</span>
-          </div>
-          <button class="grace-chat-close" aria-label="Close chat">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-        
-        <div class="grace-chat-messages" id="graceChatMessages">
-          <div class="grace-message assistant">Hi! I'm Grace, Guardian's AI insurance claims specialist. How can I help you today?</div>
-        </div>
-        
-        <div class="grace-chat-quick">
-          <button class="grace-quick-btn" data-question="Do I have storm damage?">Storm damage?</button>
-          <button class="grace-quick-btn" data-question="How do insurance claims work?">Insurance claims</button>
-          <button class="grace-quick-btn" data-question="What will I pay out of pocket?">What will I pay?</button>
-          <button class="grace-quick-btn" data-question="I want to schedule a free inspection">Schedule inspection</button>
-        </div>
-        
-        <div class="grace-chat-input">
-          <input type="text" placeholder="Type your message..." id="graceInput">
-          <button id="graceSendBtn">
-            Send
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          </button>
-        </div>
-        
-        <div class="grace-chat-footer">
-          <a href="grace.html">Open full chat experience →</a>
-        </div>
-      </div>
-    </div>
-  `;
-  
-  // Remove the old ask-grace-btn link if it exists
-  const oldButton = document.querySelector('.ask-grace-btn');
-  if (oldButton) {
-    oldButton.remove();
-  }
-  
-  // Insert widget before closing body tag
-  document.body.insertAdjacentHTML('beforeend', widgetHTML);
-  
-  // Get references
-  const widget = document.querySelector('.grace-widget');
-  const trigger = widget.querySelector('.grace-widget-trigger');
-  const panel = widget.querySelector('.grace-chat-panel');
-  const closeBtn = widget.querySelector('.grace-chat-close');
-  const messagesContainer = widget.querySelector('#graceChatMessages');
-  const input = widget.querySelector('#graceInput');
-  const sendBtn = widget.querySelector('#graceSendBtn');
-  const quickBtns = widget.querySelectorAll('.grace-quick-btn');
-  
-  let conversationHistory = [];
-  let isOpen = false;
-  
-  // Demo responses (fallback when API is not available)
-  const demoResponses = {
-    'storm': "Storm damage isn't always visible from the ground—hail can crack shingles and wind can loosen flashing. I'd recommend scheduling a free inspection so one of our experts can give you a thorough assessment. Would you like to schedule one?",
-    'insurance': "Great question! Your homeowner's insurance typically covers sudden storm damage. When you file a claim, an adjuster assesses the damage and approves repairs minus your deductible. Guardian handles everything FOR you—we document the damage, file the paperwork, and meet with the adjuster.",
-    'pay': "Most of our customers pay only their deductible—typically between $500 and $2,500. Insurance covers the full cost of repairs minus that amount. We never ask for payment until your claim is approved!",
-    'schedule': "I'd be happy to help! You can call us at 855-424-5911 or visit our contact page to schedule a free inspection. We're available Monday through Saturday.",
-    'default': "That's a great question! To give you the most accurate answer, I'd recommend scheduling a free inspection or calling us at 855-424-5911. Is there anything specific about the claims process I can help clarify?"
-  };
-  
-  function getDemoResponse(message) {
-    const lower = message.toLowerCase();
-    if (lower.includes('storm') || lower.includes('damage')) return demoResponses['storm'];
-    if (lower.includes('insurance') || lower.includes('claim')) return demoResponses['insurance'];
-    if (lower.includes('pay') || lower.includes('cost') || lower.includes('price')) return demoResponses['pay'];
-    if (lower.includes('schedule') || lower.includes('inspection') || lower.includes('appointment')) return demoResponses['schedule'];
-    return demoResponses['default'];
-  }
-  
-  function addMessage(content, role) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `grace-message ${role}`;
-    messageDiv.textContent = content;
-    messagesContainer.appendChild(messageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-  }
-  
-  function setLoading(loading) {
-    sendBtn.disabled = loading;
-    input.disabled = loading;
-    if (loading) {
-      sendBtn.innerHTML = '<span style="animation: pulse 1s infinite">...</span>';
-    } else {
-      sendBtn.innerHTML = 'Send <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
-    }
-  }
-  
-  async function sendMessage(userMessage) {
-    if (!userMessage.trim()) return;
-    
-    addMessage(userMessage, 'user');
-    conversationHistory.push({ role: 'user', content: userMessage });
-    input.value = '';
-    setLoading(true);
-    
-    // Try API first, fall back to demo responses
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: conversationHistory })
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        if (data.response) {
-          addMessage(data.response, 'assistant');
-          conversationHistory.push({ role: 'assistant', content: data.response });
-        } else {
-          throw new Error('No response');
-        }
-      } else {
-        throw new Error('API error');
-      }
-    } catch (error) {
-      // Fall back to demo responses
-      await new Promise(r => setTimeout(r, 500 + Math.random() * 500));
-      const response = getDemoResponse(userMessage);
-      addMessage(response, 'assistant');
-      conversationHistory.push({ role: 'assistant', content: response });
-    }
-    
-    setLoading(false);
-  }
-  
-  // Toggle panel
-  function togglePanel() {
-    isOpen = !isOpen;
-    panel.classList.toggle('active', isOpen);
-    trigger.style.display = isOpen ? 'none' : 'flex';
-    if (isOpen) {
-      input.focus();
-    }
-  }
-  
-  // Event listeners
-  trigger.addEventListener('click', togglePanel);
-  closeBtn.addEventListener('click', togglePanel);
-  
-  sendBtn.addEventListener('click', () => sendMessage(input.value));
-  input.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') sendMessage(input.value);
-  });
-  
-  quickBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const question = btn.getAttribute('data-question');
-      sendMessage(question);
-    });
-  });
-  
-  // Close on escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isOpen) {
-      togglePanel();
-    }
-  });
-}
-
-// Initialize Grace Widget
-document.addEventListener('DOMContentLoaded', initGraceWidget);
