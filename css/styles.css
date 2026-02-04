@@ -2402,49 +2402,23 @@ input, textarea, select, button {
 }
 
 /* ============================================
-   Trust Ticker (Infinite Scroll Badges)
+   Trust Badges (Static Centered Flex)
    ============================================ */
-.trust-ticker {
+.trust-badges {
   background: var(--bg-secondary);
-  padding: var(--spacing-lg) 0;
-  overflow: hidden;
-  position: relative;
+  padding: var(--spacing-xl) 0;
   border-bottom: 1px solid var(--border-color);
 }
 
-.trust-ticker::before,
-.trust-ticker::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.trust-ticker::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg-secondary), transparent);
-}
-
-.trust-ticker::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg-secondary), transparent);
-}
-
-.ticker-track {
+.trust-badges .container {
   display: flex;
-  gap: var(--spacing-3xl);
-  animation: ticker-scroll 30s linear infinite;
-  width: max-content;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
 }
 
-.ticker-track:hover {
-  animation-play-state: paused;
-}
-
-.ticker-item {
+.trust-badge {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
@@ -2452,37 +2426,61 @@ input, textarea, select, button {
   background: var(--card-bg);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
-  white-space: nowrap;
   transition: all var(--transition-normal);
 }
 
-.ticker-item:hover {
+.trust-badge:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
-.ticker-item-icon {
+.trust-badge-icon {
   font-size: 1.5rem;
+  line-height: 1;
 }
 
-.ticker-item-text {
+.trust-badge-text {
   font-weight: 600;
   color: var(--text-primary);
   font-size: 0.9rem;
 }
 
-.ticker-item-sub {
+.trust-badge-sub {
   font-size: 0.75rem;
   color: var(--text-muted);
 }
 
-@keyframes ticker-scroll {
-  0% {
-    transform: translateX(0);
+@media (max-width: 768px) {
+  .trust-badges .container {
+    gap: var(--spacing-sm);
   }
-  100% {
-    transform: translateX(-50%);
+  
+  .trust-badge {
+    padding: var(--spacing-xs) var(--spacing-md);
+  }
+  
+  .trust-badge-icon {
+    font-size: 1.25rem;
+  }
+  
+  .trust-badge-text {
+    font-size: 0.8rem;
+  }
+  
+  .trust-badge-sub {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .trust-badges .container {
+    justify-content: flex-start;
+  }
+  
+  .trust-badge {
+    flex: 1 1 calc(50% - var(--spacing-sm));
+    min-width: 140px;
   }
 }
 
