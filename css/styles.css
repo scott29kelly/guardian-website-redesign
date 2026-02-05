@@ -598,26 +598,55 @@ p {
   object-fit: cover;
 }
 
-@media (max-width: 768px) {
+/* Tablet - partial adjustments */
+@media (max-width: 992px) and (min-width: 577px) {
   .hero {
-    min-height: 500px;
+    min-height: 450px;
+  }
+
+  .hero-content {
+    max-width: 520px;
+  }
+
+  .hero-content p {
+    font-size: 1.125rem;
+  }
+
+  .hero-split {
+    grid-template-columns: 1fr 1fr;
+    min-height: 450px;
+  }
+
+  .hero-split .hero-content {
+    padding: var(--spacing-2xl);
+  }
+
+  .hero-image {
+    min-height: 250px;
+  }
+}
+
+/* Mobile - center everything */
+@media (max-width: 576px) {
+  .hero {
+    min-height: 400px;
     text-align: center;
   }
-  
+
   .hero-content {
     padding: var(--spacing-xl) 0;
   }
-  
+
   .hero-buttons {
     justify-content: center;
   }
-  
+
   .hero-split {
     grid-template-columns: 1fr;
   }
-  
+
   .hero-image {
-    min-height: 300px;
+    min-height: 250px;
   }
 }
 
@@ -657,15 +686,36 @@ p {
   background: var(--light-gray);
 }
 
-@media (max-width: 768px) {
+/* Tablet - keep dividers but reduce spacing */
+@media (max-width: 992px) and (min-width: 577px) {
   .social-proof .container {
     gap: var(--spacing-lg);
   }
-  
+
+  .proof-divider {
+    height: 30px;
+  }
+
+  .proof-item {
+    font-size: 0.9rem;
+  }
+
+  .proof-item svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Mobile - stack and hide dividers */
+@media (max-width: 576px) {
+  .social-proof .container {
+    gap: var(--spacing-lg);
+  }
+
   .proof-divider {
     display: none;
   }
-  
+
   .proof-item {
     flex: 0 0 calc(50% - var(--spacing-md));
     font-size: 0.875rem;
@@ -1042,12 +1092,39 @@ p {
   font-size: 0.9375rem;
 }
 
-@media (max-width: 768px) {
+/* Tablet - 2x2 grid */
+@media (max-width: 992px) and (min-width: 577px) {
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl) var(--spacing-2xl);
+  }
+
+  .process-step::after {
+    display: none;
+  }
+
+  .process-step::before {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+
+  .process-step h4 {
+    font-size: 1.1rem;
+  }
+
+  .process-step p {
+    font-size: 0.875rem;
+  }
+}
+
+/* Mobile - single column */
+@media (max-width: 576px) {
   .process-steps {
     grid-template-columns: 1fr;
     gap: var(--spacing-2xl);
   }
-  
+
   .process-step::after {
     display: none;
   }
@@ -2094,6 +2171,166 @@ input, textarea, select, button {
 }
 
 /* ============================================
+   Tablet Responsive Breakpoints (768px - 1024px)
+   ============================================ */
+
+/* Large Tablet / Small Desktop */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .container {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .section {
+    padding: var(--spacing-2xl) 0;
+  }
+
+  .hero {
+    min-height: 500px;
+  }
+
+  .hero-content {
+    max-width: 550px;
+  }
+
+  .hero-split {
+    min-height: 480px;
+  }
+
+  /* Bento grid - maintain 2 columns on tablet */
+  .bento-grid {
+    gap: var(--spacing-md);
+  }
+
+  .bento-card--large {
+    min-height: 380px;
+  }
+
+  .bento-card--small {
+    min-height: 180px;
+  }
+
+  .bento-card-title {
+    font-size: 1.5rem;
+  }
+
+  .bento-card--small .bento-card-title {
+    font-size: 1.2rem;
+  }
+
+  /* Process steps - 2x2 grid on tablet */
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl) var(--spacing-2xl);
+  }
+
+  .process-step::after {
+    display: none;
+  }
+
+  /* Service cards */
+  .service-card {
+    padding: var(--spacing-xl);
+  }
+
+  .service-card .icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.75rem;
+  }
+
+  /* Testimonial cards */
+  .testimonial-card {
+    padding: var(--spacing-xl);
+  }
+
+  .testimonial-card blockquote {
+    font-size: 1rem;
+  }
+
+  .testimonial-card .author-avatar {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  /* Timeline */
+  .process-timeline {
+    max-width: 700px;
+    padding: var(--spacing-lg) 0;
+  }
+
+  .timeline-node {
+    width: 52px;
+    height: 52px;
+    font-size: 1.25rem;
+  }
+
+  .timeline-line {
+    left: 26px;
+  }
+}
+
+/* Standard Tablet Portrait */
+@media (max-width: 992px) and (min-width: 769px) {
+  /* Hero adjustments */
+  .hero-content p {
+    font-size: 1.125rem;
+  }
+
+  /* Social proof */
+  .social-proof .container {
+    gap: var(--spacing-lg);
+  }
+
+  .proof-item {
+    font-size: 0.9rem;
+  }
+
+  /* Cards and grids */
+  .card-body {
+    padding: var(--spacing-lg);
+  }
+
+  /* Trust badges - ensure 2-column */
+  .trust-badges .container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+
+  /* Gallery grid */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Area cards */
+  .area-card {
+    padding: var(--spacing-lg);
+  }
+}
+
+/* Tablet-specific hero split */
+@media (max-width: 992px) {
+  .hero-split {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-split .hero-content {
+    padding: var(--spacing-2xl);
+    text-align: center;
+  }
+
+  .hero-split .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-image {
+    min-height: 280px;
+  }
+}
+
+/* ============================================
    Mobile Polish Improvements
    ============================================ */
 
@@ -2438,17 +2675,50 @@ input, textarea, select, button {
   backdrop-filter: blur(4px);
 }
 
-@media (max-width: 768px) {
+/* Tablet - maintain 2-column but adjust sizing */
+@media (max-width: 992px) and (min-width: 577px) {
+  .bento-grid {
+    gap: var(--spacing-md);
+  }
+
+  .bento-card--large {
+    min-height: 350px;
+  }
+
+  .bento-card--small {
+    min-height: 165px;
+  }
+
+  .bento-card-content {
+    padding: var(--spacing-lg);
+  }
+
+  .bento-card-title {
+    font-size: 1.35rem;
+  }
+
+  .bento-card--small .bento-card-title {
+    font-size: 1.15rem;
+  }
+
+  .bento-card-desc {
+    font-size: 0.875rem;
+    margin-bottom: var(--spacing-sm);
+  }
+}
+
+/* Mobile - switch to single column */
+@media (max-width: 576px) {
   .bento-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
-  
+
   .bento-card--large {
     grid-row: span 1;
     min-height: 300px;
   }
-  
+
   .bento-card--small {
     min-height: 250px;
   }

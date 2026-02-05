@@ -331,20 +331,301 @@ button:focus-visible {
 }
 
 /* ─────────────────────────────────────────────
-   13. MOBILE REFINEMENTS
+   13. TABLET RESPONSIVE (768px - 1024px)
    ───────────────────────────────────────────── */
+
+/* Large Tablet / Small Desktop (max-width: 1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --g-section-pad: 4rem 1.5rem;
+  }
+
+  h1, .hero h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem) !important;
+  }
+
+  h2, section h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem) !important;
+  }
+
+  /* Reduce card hover lift on tablets for better touch UX */
+  [class*="card"]:hover,
+  [class*="service"]:hover,
+  .services a:hover,
+  [class*="testimonial"]:hover {
+    transform: translateY(-4px) !important;
+  }
+
+  /* Adjust stat counters for tablet */
+  [class*="stat"] [class*="number"],
+  [class*="counter"] {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem) !important;
+  }
+
+  /* Divider adjustments */
+  .g-divider-top::before,
+  .g-divider-bottom::after {
+    height: 45px;
+  }
+}
+
+/* Standard Tablet Portrait (max-width: 992px) */
+@media (max-width: 992px) {
+  :root {
+    --g-section-pad: 3.5rem 1.25rem;
+  }
+
+  /* Typography scaling for tablet */
+  h1, .hero h1 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem) !important;
+    line-height: 1.2;
+  }
+
+  h2, section h2 {
+    font-size: clamp(1.5rem, 2.8vw, 2rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem) !important;
+  }
+
+  /* Section heading underline */
+  section h2::after {
+    width: 50px;
+    margin: 0.6rem auto 0;
+  }
+
+  /* Stagger animation timing for smaller screens */
+  .g-stagger.g-visible > *:nth-child(4),
+  .g-stagger.g-visible > *:nth-child(5),
+  .g-stagger.g-visible > *:nth-child(6) {
+    transition-delay: 0.2s;
+  }
+
+  /* Grid layout adjustments - ensure 2-column on tablet */
+  .g-stagger {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Certification badge adjustments */
+  [class*="cert"],
+  [class*="badge"],
+  [class*="trust"] [class*="item"] {
+    padding: 1.25rem !important;
+  }
+
+  /* Hero entrance animation - reduce movement */
+  .g-hero-entrance {
+    transform: translateY(30px) scale(0.99);
+  }
+
+  /* Blockquote adjustments */
+  blockquote::before,
+  [class*="testimonial"] blockquote::before {
+    font-size: 3rem;
+    top: -0.3rem;
+    left: -0.15rem;
+  }
+}
+
+/* Tablet Portrait / Large Phone (max-width: 768px) */
 @media (max-width: 768px) {
+  :root {
+    --g-section-pad: 3rem 1rem;
+  }
+
+  /* Typography for smaller tablets */
+  h1, .hero h1 {
+    font-size: clamp(1.75rem, 5vw, 2.2rem) !important;
+    line-height: 1.25;
+  }
+
+  h2, section h2 {
+    font-size: clamp(1.4rem, 4vw, 1.8rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(1.15rem, 3vw, 1.4rem) !important;
+  }
+
+  /* Grid - switch to single column on smaller tablets */
+  .g-stagger {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  /* Reveal animation - reduced movement */
   .g-reveal {
     transform: translateY(20px);
   }
 
+  /* Divider heights */
   .g-divider-top::before,
   .g-divider-bottom::after {
     height: 35px;
   }
 
+  /* Section heading underline */
   section h2::after {
     width: 45px;
     height: 2px;
+  }
+
+  /* Stat counters */
+  [class*="stat"] [class*="number"],
+  [class*="counter"] {
+    font-size: clamp(1.6rem, 5vw, 2rem) !important;
+  }
+
+  /* Card hover - disable on touch devices */
+  [class*="card"]:hover,
+  [class*="service"]:hover,
+  .services a:hover,
+  [class*="testimonial"]:hover {
+    transform: translateY(-2px) !important;
+  }
+
+  /* Certification/trust badges */
+  [class*="cert"],
+  [class*="badge"],
+  [class*="trust"] [class*="item"] {
+    padding: 1rem !important;
+    border-radius: 10px !important;
+  }
+
+  /* Testimonial quote styling */
+  blockquote,
+  [class*="testimonial"] q,
+  [class*="testimonial"] blockquote {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  blockquote::before,
+  [class*="testimonial"] blockquote::before {
+    font-size: 2.5rem;
+    top: -0.25rem;
+    left: -0.1rem;
+  }
+
+  /* Hero entrance - minimal animation */
+  .g-hero-entrance {
+    transform: translateY(25px) scale(1);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   14. SMALL MOBILE REFINEMENTS (max-width: 480px)
+   ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+  :root {
+    --g-section-pad: 2.5rem 0.75rem;
+  }
+
+  h1, .hero h1 {
+    font-size: clamp(1.5rem, 6vw, 1.9rem) !important;
+  }
+
+  h2, section h2 {
+    font-size: clamp(1.25rem, 5vw, 1.5rem) !important;
+  }
+
+  section h2::after {
+    width: 40px;
+    margin: 0.5rem auto 0;
+  }
+
+  /* Disable hover effects on mobile */
+  [class*="card"]:hover,
+  [class*="service"]:hover,
+  .services a:hover,
+  [class*="testimonial"]:hover {
+    transform: none !important;
+  }
+
+  /* Reduce padding further */
+  [class*="cert"],
+  [class*="badge"],
+  [class*="trust"] [class*="item"] {
+    padding: 0.875rem !important;
+    border-radius: 8px !important;
+  }
+
+  /* Stat numbers */
+  [class*="stat"] [class*="number"],
+  [class*="counter"] {
+    font-size: clamp(1.4rem, 6vw, 1.8rem) !important;
+  }
+
+  /* Minimal reveal animation */
+  .g-reveal {
+    transform: translateY(15px);
+  }
+
+  .g-divider-top::before,
+  .g-divider-bottom::after {
+    height: 25px;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   15. TABLET LANDSCAPE HANDLING
+   ───────────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  /* Landscape tablet optimizations */
+  h1, .hero h1 {
+    font-size: clamp(2rem, 4vw, 2.8rem) !important;
+  }
+
+  h2, section h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem) !important;
+  }
+
+  /* Ensure grid stays 2-column in landscape */
+  .g-stagger {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Adjust section padding for landscape */
+  :root {
+    --g-section-pad: 3rem 2rem;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   16. TOUCH DEVICE OPTIMIZATIONS
+   ───────────────────────────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  [class*="card"]:hover,
+  [class*="service"]:hover,
+  .services a:hover,
+  [class*="testimonial"]:hover {
+    transform: none !important;
+    box-shadow: var(--g-shadow-sm) !important;
+  }
+
+  a[href="contact.html"]:hover,
+  [class*="btn-primary"]:hover,
+  [class*="cta"] a:hover {
+    transform: none !important;
+  }
+
+  [class*="cert"]:hover,
+  [class*="badge"]:hover,
+  [class*="trust"] [class*="item"]:hover {
+    border-color: var(--g-light-gray) !important;
+    box-shadow: none !important;
+  }
+
+  /* Increase touch targets */
+  a[href="contact.html"],
+  [class*="btn-primary"],
+  [class*="cta"] a {
+    min-height: 48px;
+    min-width: 48px;
   }
 }
