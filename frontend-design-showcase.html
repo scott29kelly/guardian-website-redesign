@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frontend Design Skill — Showcase</title>
+
+<!-- Distinctive Typography Pairing -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   CSS VARIABLES — COHESIVE THEME SYSTEM
+   Technique: CSS custom properties for consistency
+   ============================================ */
+:root {
+  /* Dark editorial palette — dominant dark with warm gold accent */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1a1a1a;
+  --bg-card: #0f0f0f;
+  --text-primary: #f0ece4;
+  --text-secondary: #8a8478;
+  --text-muted: #5a5650;
+  --accent: #c8a44e;
+  --accent-bright: #e8c85e;
+  --accent-dim: #8a7234;
+  --danger: #c84e4e;
+  --success: #4ec86a;
+  --border: #2a2824;
+  --border-subtle: #1e1c18;
+  
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+  --space-2xl: 8rem;
+  
+  /* Typography scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 3rem;
+  --text-4xl: 4.5rem;
+  --text-5xl: 7rem;
+  
+  /* Fonts */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 800ms;
+  --duration-glacial: 1200ms;
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-dim) var(--bg-primary);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-size: var(--text-base);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ============================================
+   CUSTOM CURSOR
+   Technique: Custom cursor for premium feel
+   ============================================ */
+a, button, [data-clickable] {
+  cursor: pointer;
+}
+
+/* ============================================
+   CUSTOM SCROLLBAR (Webkit)
+   ============================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ============================================
+   GRAIN OVERLAY
+   Technique: Noise texture for atmosphere/depth
+   ============================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ============================================
+   SECTION LABEL SYSTEM
+   Technique: Each section labeled with the skill technique it demonstrates
+   ============================================ */
+.technique-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent-dim);
+  padding: 0.3em 0.8em;
+  border-radius: 2px;
+  display: inline-block;
+  margin-bottom: var(--space-lg);
+  background: rgba(200, 164, 78, 0.05);
+}
+
+.section-note {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 500px;
+  margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border-left: 2px solid var(--border);
+}
+
+/* ============================================
+   PAGE LOAD ANIMATION SYSTEM
+   Technique: Staggered reveal on load (animation-delay)
+   ============================================ */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes expandWidth {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes rotateIn {
+  from { opacity: 0; transform: rotate(-8deg) scale(0.9); }
+  to { opacity: 1; transform: rotate(0) scale(1); }
+}
+
+@keyframes morphBorder {
+  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+.animate-on-load {
+  opacity: 0;
+  animation: fadeSlideUp var(--duration-slow) var(--ease-out-expo) forwards;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.25s; }
+.stagger-3 { animation-delay: 0.4s; }
+.stagger-4 { animation-delay: 0.55s; }
+.stagger-5 { animation-delay: 0.7s; }
+.stagger-6 { animation-delay: 0.85s; }
+.stagger-7 { animation-delay: 1.0s; }
+.stagger-8 { animation-delay: 1.15s; }
+
+/* ============================================
+   SCROLL-TRIGGERED ANIMATIONS
+   Technique: IntersectionObserver + CSS classes
+   ============================================ */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all var(--duration-slow) var(--ease-out-expo);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: all var(--duration-slow) var(--ease-out-expo);
+}
+
+.scroll-reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: all var(--duration-slow) var(--ease-out-expo);
+}
+
+.scroll-reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-reveal-scale {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all var(--duration-slow) var(--ease-out-expo);
+}
+
+.scroll-reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ============================================
+   NAVIGATION — FIXED MINIMAL
+   Technique: Glassmorphism backdrop-filter
+   ============================================ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: var(--space-md) var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid var(--border-subtle);
+  animation: fadeSlideDown var(--duration-slow) var(--ease-out-expo) 0.2s both;
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: var(--text-lg);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.nav-logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-lg);
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color var(--duration-fast) ease;
+}
+
+/* Technique: Animated underline on hover */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width var(--duration-normal) var(--ease-out-expo);
+}
+
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a:hover::after { width: 100%; }
+
+/* ============================================
+   HERO SECTION
+   Techniques: Gradient mesh background, oversized typography, 
+   asymmetric layout, staggered animations
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Technique: Gradient mesh background for depth */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(200, 164, 78, 0.08), transparent),
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(200, 164, 78, 0.04), transparent),
+    radial-gradient(ellipse 50% 50% at 60% 80%, rgba(138, 114, 52, 0.06), transparent);
+  z-index: 0;
+}
+
+/* Technique: Geometric pattern background layer */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: morphBorder 20s ease-in-out infinite, fadeIn 2s ease both;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-lg);
+}
+
+/* Technique: Oversized dramatic typography */
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, var(--text-5xl));
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-lg);
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-xl);
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* Technique: Decorative divider line with animation */
+.hero-divider {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  margin: var(--space-xl) 0;
+  animation: expandWidth 1.5s var(--ease-out-expo) 0.8s forwards;
+}
+
+/* ============================================
+   SECTION: TYPOGRAPHY SHOWCASE
+   Technique: Font pairing, scale, hierarchy
+   ============================================ */
+section {
+  padding: var(--space-2xl) var(--space-xl);
+  position: relative;
+}
+
+section + section {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.section-header {
+  margin-bottom: var(--space-xl);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: var(--space-sm);
+}
+
+.type-showcase {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.type-specimen {
+  padding: var(--space-xl);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--duration-normal) ease;
+}
+
+.type-specimen:hover {
+  border-color: var(--accent-dim);
+}
+
+.type-specimen-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+.type-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.type-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.type-body {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 65ch;
+}
+
+.type-mono-sample {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--accent);
+  line-height: 1.6;
+}
+
+/* ============================================
+   SECTION: COLOR SYSTEM
+   Technique: Dominant + sharp accent palette, CSS vars
+   ============================================ */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+
+.color-chip {
+  aspect-ratio: 3/2;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--duration-normal) var(--ease-out-expo), 
+              box-shadow var(--duration-normal) var(--ease-out-expo);
+}
+
+/* Technique: Hover lift with shadow */
+.color-chip:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.color-chip-name {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.color-chip-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  opacity: 0.7;
+}
+
+/* ============================================
+   SECTION: MOTION & ANIMATION SHOWCASE
+   Technique: Hover states, micro-interactions, CSS animations
+   ============================================ */
+.motion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+.motion-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: var(--space-xl);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.motion-card-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+  color: var(--text-secondary);
+}
+
+/* Card 1: Hover Scale + Glow */
+.motion-hover-scale {
+  transition: all var(--duration-normal) var(--ease-out-expo);
+}
+
+.motion-hover-scale:hover {
+  transform: scale(1.03);
+  border-color: var(--accent);
+  box-shadow: 0 0 40px rgba(200, 164, 78, 0.15), 0 20px 60px rgba(0,0,0,0.3);
+}
+
+/* Card 2: Hover Border Wipe */
+.motion-hover-border::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-normal) var(--ease-out-expo);
+}
+
+.motion-hover-border:hover::before {
+  transform: scaleX(1);
+}
+
+/* Card 3: Hover Background Reveal */
+.motion-hover-bg {
+  transition: all var(--duration-normal) ease;
+}
+
+.motion-hover-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(200, 164, 78, 0.08), rgba(200, 164, 78, 0.02));
+  opacity: 0;
+  transition: opacity var(--duration-normal) ease;
+}
+
+.motion-hover-bg:hover::after { opacity: 1; }
+.motion-hover-bg:hover { border-color: var(--accent-dim); }
+
+/* Demo elements inside cards */
+.demo-box {
+  width: 60px;
+  height: 60px;
+  background: var(--accent);
+  border-radius: 4px;
+  margin: var(--space-lg) auto;
+}
+
+.demo-float {
+  animation: float 3s var(--ease-in-out) infinite;
+}
+
+.demo-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.demo-morph {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: morphBorder 6s ease-in-out infinite;
+}
+
+.demo-spin {
+  animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   SECTION: SPATIAL COMPOSITION
+   Technique: Asymmetry, overlap, grid-breaking, diagonal flow
+   ============================================ */
+.composition-demo {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 300px 200px 250px;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+.comp-block {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: var(--space-lg);
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--duration-normal) var(--ease-out-expo);
+}
+
+.comp-block:hover {
+  border-color: var(--accent-dim);
+  z-index: 2;
+}
+
+.comp-block-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Technique: Grid-spanning for asymmetric layout */
+.comp-block-hero {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+  background: linear-gradient(135deg, var(--bg-secondary), rgba(200, 164, 78, 0.05));
+}
+
+/* Technique: Overlap with negative margin / grid overlap */
+.comp-block-overlap {
+  grid-column: 2 / 4;
+  grid-row: 2 / 4;
+  z-index: 1;
+  background: var(--bg-tertiary);
+  border-color: var(--accent-dim);
+}
+
+.comp-block-tall {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+}
+
+.comp-block-small {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+.comp-block-bottom {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+}
+
+/* ============================================
+   SECTION: BACKGROUND TECHNIQUES
+   Technique: Gradient mesh, noise, geometric patterns, 
+   layered transparencies, dramatic shadows
+   ============================================ */
+.bg-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.bg-demo {
+  height: 250px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-lg);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--duration-normal) var(--ease-out-expo);
+}
+
+.bg-demo:hover {
+  transform: translateY(-4px);
+}
+
+.bg-demo-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  position: relative;
+  z-index: 2;
+  background: rgba(10,10,10,0.6);
+  padding: 0.3em 0.6em;
+  border-radius: 2px;
+}
+
+/* Gradient Mesh */
+.bg-gradient-mesh {
+  background: 
+    radial-gradient(at 40% 20%, rgba(200, 164, 78, 0.3) 0, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(138, 114, 52, 0.2) 0, transparent 50%),
+    radial-gradient(at 0% 50%, rgba(200, 164, 78, 0.15) 0, transparent 50%),
+    radial-gradient(at 60% 100%, rgba(90, 86, 80, 0.2) 0, transparent 50%),
+    var(--bg-secondary);
+}
+
+/* Geometric Pattern */
+.bg-geometric {
+  background: 
+    linear-gradient(30deg, var(--border) 12%, transparent 12.5%, transparent 87%, var(--border) 87.5%, var(--border)),
+    linear-gradient(150deg, var(--border) 12%, transparent 12.5%, transparent 87%, var(--border) 87.5%, var(--border)),
+    linear-gradient(30deg, var(--border) 12%, transparent 12.5%, transparent 87%, var(--border) 87.5%, var(--border)),
+    linear-gradient(150deg, var(--border) 12%, transparent 12.5%, transparent 87%, var(--border) 87.5%, var(--border)),
+    linear-gradient(60deg, rgba(42,40,36,0.5) 25%, transparent 25.5%, transparent 75%, rgba(42,40,36,0.5) 75%, rgba(42,40,36,0.5));
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0;
+  background-color: var(--bg-secondary);
+}
+
+/* Layered Transparency */
+.bg-layered {
+  background: var(--bg-secondary);
+}
+
+.bg-layered::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(135deg, rgba(200, 164, 78, 0.1) 0%, transparent 50%),
+    linear-gradient(225deg, rgba(200, 164, 78, 0.05) 0%, transparent 50%);
+}
+
+.bg-layered::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(200, 164, 78, 0.15);
+  border-radius: 50%;
+  animation: morphBorder 15s ease-in-out infinite;
+}
+
+/* Noise Texture */
+.bg-noise {
+  background: var(--bg-secondary);
+}
+
+.bg-noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px;
+}
+
+/* ============================================
+   SECTION: BUTTONS & INTERACTIVE ELEMENTS
+   Technique: Various button styles, hover/active states
+   ============================================ */
+.button-showcase {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.9em 2em;
+  border: none;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--duration-normal) var(--ease-out-expo);
+}
+
+/* Primary: Filled with hover lift */
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(200, 164, 78, 0.3);
+  background: var(--accent-bright);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(200, 164, 78, 0.2);
+}
+
+/* Ghost: Outlined with fill on hover */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-normal) var(--ease-out-expo);
+  z-index: -1;
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--bg-primary);
+}
+
+.btn-ghost:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Underline: Minimal with animated underline */
+.btn-underline {
+  background: none;
+  color: var(--text-primary);
+  padding: 0.5em 0;
+  border-bottom: 1px solid var(--text-muted);
+}
+
+.btn-underline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Icon button */
+.btn-icon {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.btn-icon:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(1.1);
+}
+
+/* ============================================
+   SECTION: CARD PATTERNS
+   Technique: Various card styles with hover effects
+   ============================================ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all var(--duration-normal) var(--ease-out-expo);
+}
+
+/* Card with image area */
+.card-media {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-media-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.card:hover .card-media-inner {
+  transform: scale(1.05);
+}
+
+.card-media-gradient {
+  background: linear-gradient(135deg, rgba(200,164,78,0.15), rgba(138,114,52,0.1));
+}
+
+.card-media-pattern {
+  background: 
+    repeating-linear-gradient(45deg, var(--border) 0, var(--border) 1px, transparent 0, transparent 50%),
+    var(--bg-secondary);
+  background-size: 20px 20px;
+}
+
+.card-media-mesh {
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(200,164,78,0.2), transparent 70%),
+    radial-gradient(ellipse at 70% 30%, rgba(138,114,52,0.15), transparent 60%),
+    var(--bg-secondary);
+}
+
+.card-body {
+  padding: var(--space-lg);
+}
+
+.card-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-sm);
+}
+
+.card-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  line-height: 1.2;
+}
+
+.card-desc {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+
+/* Card hover variants */
+.card-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  border-color: var(--accent-dim);
+}
+
+.card-glow:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 40px rgba(200,164,78,0.1), 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.card-border-accent:hover {
+  border-color: var(--accent);
+}
+
+.card-border-accent:hover .card-tag {
+  color: var(--accent-bright);
+}
+
+/* ============================================
+   SECTION: FORM ELEMENTS
+   Technique: Styled inputs, focus states, validation
+   ============================================ */
+.form-showcase {
+  max-width: 500px;
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.form-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.form-input {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.9em var(--space-md);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  transition: all var(--duration-fast) ease;
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Technique: Focus ring with accent color */
+.form-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(200, 164, 78, 0.15);
+}
+
+.form-input-error {
+  border-color: var(--danger) !important;
+  box-shadow: 0 0 0 3px rgba(200, 78, 78, 0.15) !important;
+}
+
+.form-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.form-error {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--danger);
+}
+
+/* Textarea */
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Toggle switch */
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.toggle {
+  width: 48px;
+  height: 26px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  position: relative;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out-expo);
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: var(--text-muted);
+  border-radius: 50%;
+  transition: all var(--duration-normal) var(--ease-out-back);
+}
+
+.toggle.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.toggle.active::after {
+  transform: translateX(22px);
+  background: var(--bg-primary);
+}
+
+/* ============================================
+   SECTION: DATA DISPLAY / DASHBOARD WIDGETS
+   Technique: Stats, progress bars, badges, tags
+   ============================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+
+.stat-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: var(--space-lg);
+  transition: all var(--duration-normal) var(--ease-out-expo);
+}
+
+.stat-card:hover {
+  border-color: var(--accent-dim);
+  transform: translateY(-2px);
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.stat-change {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  margin-top: var(--space-sm);
+}
+
+.stat-change-positive { color: var(--success); }
+.stat-change-negative { color: var(--danger); }
+
+/* Progress bar */
+.progress-wrapper {
+  margin-top: var(--space-lg);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: var(--space-xs);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+  border-radius: 2px;
+  transition: width 1.5s var(--ease-out-expo);
+}
+
+/* Tags / Badges */
+.tag-showcase {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4em 0.8em;
+  border-radius: 2px;
+  border: 1px solid;
+  transition: all var(--duration-fast) ease;
+}
+
+.tag-default { border-color: var(--border); color: var(--text-secondary); }
+.tag-accent { border-color: var(--accent-dim); color: var(--accent); background: rgba(200,164,78,0.05); }
+.tag-success { border-color: rgba(78,200,106,0.3); color: var(--success); background: rgba(78,200,106,0.05); }
+.tag-danger { border-color: rgba(200,78,78,0.3); color: var(--danger); background: rgba(200,78,78,0.05); }
+
+.tag:hover { transform: translateY(-1px); }
+
+/* ============================================
+   SECTION: GLASSMORPHISM & DEPTH
+   Technique: backdrop-filter, layered panels, z-depth
+   ============================================ */
+.glass-demo {
+  position: relative;
+  height: 500px;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(200,164,78,0.2), transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(138,114,52,0.15), transparent 50%),
+    var(--bg-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.glass-panel {
+  position: absolute;
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid rgba(240, 236, 228, 0.08);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  transition: all var(--duration-normal) var(--ease-out-expo);
+}
+
+.glass-panel:hover {
+  border-color: rgba(200, 164, 78, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.glass-panel-1 { top: 40px; left: 40px; width: 280px; }
+.glass-panel-2 { top: 100px; left: 200px; width: 300px; z-index: 2; }
+.glass-panel-3 { bottom: 60px; right: 60px; width: 260px; }
+
+.glass-panel h4 {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.glass-panel p {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Floating decorative shapes behind glass */
+.glass-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.glass-shape-1 {
+  width: 200px; height: 200px;
+  background: radial-gradient(var(--accent-dim), transparent);
+  top: 10%; left: 60%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.glass-shape-2 {
+  width: 120px; height: 120px;
+  background: radial-gradient(rgba(200,164,78,0.4), transparent);
+  bottom: 20%; left: 15%;
+  animation: float 6s ease-in-out infinite 2s;
+}
+
+/* ============================================
+   SECTION: DECORATIVE BORDERS & DIVIDERS
+   ============================================ */
+.divider-showcase {
+  display: grid;
+  gap: var(--space-xl);
+  padding: var(--space-lg) 0;
+}
+
+.divider-item {
+  text-align: center;
+}
+
+.divider-item-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+/* Gradient fade */
+.divider-gradient {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+/* Dotted */
+.divider-dotted {
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--accent-dim) 0, var(--accent-dim) 4px, transparent 4px, transparent 12px);
+}
+
+/* Double line */
+.divider-double {
+  height: 5px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Diamond center */
+.divider-diamond {
+  height: 1px;
+  background: var(--border);
+  position: relative;
+}
+
+.divider-diamond::after {
+  content: '◆';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-primary);
+  padding: 0 var(--space-md);
+  color: var(--accent);
+  font-size: 10px;
+}
+
+/* ============================================
+   SECTION: TOOLTIP & POPOVER
+   ============================================ */
+.tooltip-demo {
+  display: flex;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.has-tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dashed var(--text-muted);
+  cursor: help;
+  padding-bottom: 2px;
+}
+
+.tooltip-text {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-primary);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--duration-fast) var(--ease-out-expo);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.tooltip-text::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--border);
+}
+
+.has-tooltip:hover .tooltip-text {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================
+   SECTION: TABLE
+   ============================================ */
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: var(--bg-secondary);
+}
+
+th {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: left;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: var(--text-sm);
+}
+
+tr {
+  transition: background var(--duration-fast) ease;
+}
+
+tbody tr:hover {
+  background: rgba(200, 164, 78, 0.03);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ============================================
+   FOOTER
+   Technique: Minimal, editorial
+   ============================================ */
+footer {
+  padding: var(--space-2xl) var(--space-xl);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+footer p {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+footer a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-fast) ease;
+}
+
+footer a:hover { color: var(--accent); }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  nav { padding: var(--space-md); }
+  .nav-links { display: none; }
+  section { padding: var(--space-xl) var(--space-md); }
+  .hero { padding: var(--space-2xl) var(--space-md); }
+  .composition-demo {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .comp-block-hero, .comp-block-overlap, .comp-block-tall {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .bg-showcase { grid-template-columns: 1fr; }
+  .glass-demo { height: auto; min-height: 600px; }
+  .glass-panel { position: relative; top: auto; left: auto; right: auto; bottom: auto; width: 100% !important; margin-bottom: var(--space-md); }
+  .button-showcase { flex-direction: column; align-items: flex-start; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav>
+  <div class="nav-logo">Design<span>.</span>Skill</div>
+  <ul class="nav-links">
+    <li><a href="#typography">Type</a></li>
+    <li><a href="#color">Color</a></li>
+    <li><a href="#motion">Motion</a></li>
+    <li><a href="#composition">Layout</a></li>
+    <li><a href="#backgrounds">Backgrounds</a></li>
+    <li><a href="#components">Components</a></li>
+    <li><a href="#glass">Glass</a></li>
+  </ul>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow animate-on-load stagger-1">Frontend Design Skill — Component Showcase</p>
+    <h1 class="animate-on-load stagger-2">Every UI<br>technique,<br><em>one page.</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle animate-on-load stagger-4">A living reference of typography, color, motion, spatial composition, background techniques, and interactive components — all built with pure HTML, CSS &amp; vanilla JS. Steal anything.</p>
+    <div class="section-note animate-on-load stagger-5">
+      → Each section is labeled with the technique it demonstrates.<br>
+      → Hover, click, and scroll to see interactions.<br>
+      → View source to extract any component.
+    </div>
+  </div>
+</section>
+
+<!-- ========== TYPOGRAPHY ========== -->
+<section id="typography">
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Typography &amp; Font Pairing</span>
+    <h2 class="section-title">Type System</h2>
+  </div>
+  
+  <div class="type-showcase">
+    <div class="type-specimen scroll-reveal">
+      <div class="type-specimen-label">Display — Playfair Display 900</div>
+      <div class="type-display">The quick brown fox jumps over the lazy dog</div>
+    </div>
+    
+    <div class="type-specimen scroll-reveal">
+      <div class="type-specimen-label">Heading — Syne 700</div>
+      <div class="type-heading">Bold geometric headings with character and weight</div>
+    </div>
+    
+    <div class="type-specimen scroll-reveal">
+      <div class="type-specimen-label">Body — Instrument Serif 400</div>
+      <p class="type-body">Long-form body text benefits from a serif with generous x-height and comfortable letterspacing. This font was chosen for its editorial quality — it feels like a well-designed magazine, not a generic web page. The line-height is set to 1.8 for maximum readability.</p>
+    </div>
+    
+    <div class="type-specimen scroll-reveal">
+      <div class="type-specimen-label">Monospace — JetBrains Mono 400</div>
+      <div class="type-mono-sample">
+        const design = {<br>
+        &nbsp;&nbsp;typography: 'distinctive',<br>
+        &nbsp;&nbsp;color: 'intentional',<br>
+        &nbsp;&nbsp;motion: 'purposeful',<br>
+        &nbsp;&nbsp;layout: 'unexpected'<br>
+        };
+      </div>
+    </div>
+  </div>
+  
+  <div class="section-note scroll-reveal">
+    → Key: Avoid Inter, Roboto, Arial. Pair a distinctive display font with a refined body font. Monospace for labels, code, and UI elements adds technical credibility.
+  </div>
+</section>
+
+<!-- ========== COLOR ========== -->
+<section id="color">
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Dominant Color + Sharp Accent</span>
+    <h2 class="section-title">Color System</h2>
+  </div>
+  
+  <div class="color-grid">
+    <div class="color-chip scroll-reveal" style="background: var(--bg-primary);">
+      <span class="color-chip-name" style="color: var(--text-secondary);">Primary BG</span>
+      <span class="color-chip-value" style="color: var(--text-muted);">#0a0a0a</span>
+    </div>
+    <div class="color-chip scroll-reveal" style="background: var(--bg-secondary);">
+      <span class="color-chip-name" style="color: var(--text-secondary);">Secondary BG</span>
+      <span class="color-chip-value" style="color: var(--text-muted);">#111111</span>
+    </div>
+    <div class="color-chip scroll-reveal" style="background: var(--bg-tertiary);">
+      <span class="color-chip-name" style="color: var(--text-secondary);">Tertiary BG</span>
+      <span class="color-chip-value" style="color: var(--text-muted);">#1a1a1a</span>
+    </div>
+    <div class="color-chip scroll-reveal" style="background: var(--accent);">
+      <span class="color-chip-name" style="color: var(--bg-primary);">Accent</span>
+      <span class="color-chip-value" style="color: rgba(10,10,10,0.7);">#c8a44e</span>
+    </div>
+    <div class="color-chip scroll-reveal" style="background: var(--accent-bright);">
+      <span class="color-chip-name" style="color: var(--bg-primary);">Accent Bright</span>
+      <span class="color-chip-value" style="color: rgba(10,10,10,0.7);">#e8c85e</span>
+    </div>
+    <div class="color-chip scroll-reveal" style="background: var(--text-primary);">
+      <span class="color-chip-name" style="color: var(--bg-primary);">Text Primary</span>
+      <span class="color-chip-value" style="color: rgba(10,10,10,0.7);">#f0ece4</span>
+    </div>
+    <div class="color-chip scroll-reveal" style="background: var(--success);">
+      <span class="color-chip-name" style="color: var(--bg-primary);">Success</span>
+      <span class="color-chip-value" style="color: rgba(10,10,10,0.7);">#4ec86a</span>
+    </div>
+    <div class="color-chip scroll-reveal" style="background: var(--danger);">
+      <span class="color-chip-name" style="color: var(--text-primary);">Danger</span>
+      <span class="color-chip-value" style="color: rgba(240,236,228,0.7);">#c84e4e</span>
+    </div>
+  </div>
+  
+  <div class="section-note scroll-reveal">
+    → Key: Dominant dark background. One warm accent (gold) does all the heavy lifting. Success/danger are semantic only. Avoid evenly-distributed rainbow palettes.
+  </div>
+</section>
+
+<!-- ========== MOTION ========== -->
+<section id="motion">
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Motion &amp; Micro-Interactions</span>
+    <h2 class="section-title">Animation Patterns</h2>
+  </div>
+  
+  <div class="motion-grid">
+    <div class="motion-card motion-hover-scale scroll-reveal">
+      <div class="motion-card-title">Hover: Scale + Glow</div>
+      <div class="demo-box"></div>
+      <p class="section-note" style="text-align: center; max-width: none;">Hover me — transform: scale(1.03) + box-shadow glow</p>
+    </div>
+    
+    <div class="motion-card motion-hover-border scroll-reveal">
+      <div class="motion-card-title">Hover: Border Wipe</div>
+      <div class="demo-box"></div>
+      <p class="section-note" style="text-align: center; max-width: none;">Hover me — top border animates scaleX from left</p>
+    </div>
+    
+    <div class="motion-card motion-hover-bg scroll-reveal">
+      <div class="motion-card-title">Hover: BG Reveal</div>
+      <div class="demo-box"></div>
+      <p class="section-note" style="text-align: center; max-width: none;">Hover me — gradient overlay fades in</p>
+    </div>
+    
+    <div class="motion-card scroll-reveal">
+      <div class="motion-card-title">Float</div>
+      <div class="demo-box demo-float"></div>
+      <p class="section-note" style="text-align: center; max-width: none;">translateY oscillation — great for heroes</p>
+    </div>
+    
+    <div class="motion-card scroll-reveal">
+      <div class="motion-card-title">Pulse</div>
+      <div class="demo-box demo-pulse"></div>
+      <p class="section-note" style="text-align: center; max-width: none;">Opacity pulse — subtle "alive" indicator</p>
+    </div>
+    
+    <div class="motion-card scroll-reveal">
+      <div class="motion-card-title">Morph</div>
+      <div class="demo-box demo-morph"></div>
+      <p class="section-note" style="text-align: center; max-width: none;">border-radius animation — organic blobs</p>
+    </div>
+  </div>
+  
+  <div class="section-note scroll-reveal" style="margin-top: var(--space-xl);">
+    → Key: One orchestrated page load with staggered delays beats scattered micro-interactions. CSS-only for HTML; Motion library for React. Custom easings (expo, back) feel premium.
+  </div>
+</section>
+
+<!-- ========== SPATIAL COMPOSITION ========== -->
+<section id="composition">
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Asymmetry, Overlap, Grid-Breaking</span>
+    <h2 class="section-title">Spatial Composition</h2>
+  </div>
+  
+  <div class="composition-demo scroll-reveal-scale">
+    <div class="comp-block comp-block-hero">
+      <div class="comp-block-label">Spans 2 columns — dominant visual weight</div>
+    </div>
+    <div class="comp-block comp-block-tall">
+      <div class="comp-block-label">Standard cell — vertical emphasis</div>
+    </div>
+    <div class="comp-block comp-block-small">
+      <div class="comp-block-label">Small — breathing room</div>
+    </div>
+    <div class="comp-block comp-block-overlap">
+      <div class="comp-block-label">Overlapping — breaks grid, creates depth via z-index</div>
+    </div>
+    <div class="comp-block comp-block-bottom">
+      <div class="comp-block-label">Anchor — grounds the layout</div>
+    </div>
+  </div>
+  
+  <div class="section-note scroll-reveal" style="margin-top: var(--space-xl);">
+    → Key: CSS Grid with explicit row/column spans creates asymmetry. Overlap via grid-area + z-index. Negative space is a design element, not wasted space.
+  </div>
+</section>
+
+<!-- ========== BACKGROUNDS ========== -->
+<section id="backgrounds">
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Gradient Mesh, Noise, Geometric Patterns, Layered Transparency</span>
+    <h2 class="section-title">Background Techniques</h2>
+  </div>
+  
+  <div class="bg-showcase">
+    <div class="bg-demo bg-gradient-mesh scroll-reveal">
+      <span class="bg-demo-label">Gradient Mesh</span>
+    </div>
+    <div class="bg-demo bg-geometric scroll-reveal">
+      <span class="bg-demo-label">Geometric Pattern</span>
+    </div>
+    <div class="bg-demo bg-layered scroll-reveal">
+      <span class="bg-demo-label">Layered Transparency</span>
+    </div>
+    <div class="bg-demo bg-noise scroll-reveal">
+      <span class="bg-demo-label">Noise / Grain Texture</span>
+    </div>
+  </div>
+  
+  <div class="section-note scroll-reveal" style="margin-top: var(--space-xl);">
+    → Key: Multiple radial-gradient() calls create mesh effects. SVG feTurbulence for noise. Repeating-linear-gradient for geometric patterns. Always use ::before/::after to layer without affecting content.
+  </div>
+</section>
+
+<!-- ========== COMPONENTS: BUTTONS ========== -->
+<section id="components">
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Button Styles &amp; Interactive States</span>
+    <h2 class="section-title">Buttons</h2>
+  </div>
+  
+  <div class="button-showcase scroll-reveal">
+    <button class="btn btn-primary">Primary Action</button>
+    <button class="btn btn-ghost">Ghost Button</button>
+    <button class="btn btn-underline">Underline Link</button>
+    <button class="btn btn-icon">→</button>
+  </div>
+  
+  <div class="section-note scroll-reveal">
+    → Primary: solid fill + hover lift + shadow. Ghost: border with ::before scaleX fill on hover. Underline: minimal editorial style. Icon: circle with scale on hover.
+  </div>
+</section>
+
+<!-- ========== CARDS ========== -->
+<section>
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Card Patterns &amp; Hover Effects</span>
+    <h2 class="section-title">Cards</h2>
+  </div>
+  
+  <div class="card-grid">
+    <div class="card card-lift scroll-reveal">
+      <div class="card-media"><div class="card-media-inner card-media-gradient"></div></div>
+      <div class="card-body">
+        <div class="card-tag">Hover: Lift</div>
+        <h3 class="card-title">Card with translateY lift</h3>
+        <p class="card-desc">Elevates on hover with deep shadow. The media area uses a gradient fill and scales slightly via transform on the inner element.</p>
+      </div>
+    </div>
+    
+    <div class="card card-glow scroll-reveal">
+      <div class="card-media"><div class="card-media-inner card-media-pattern"></div></div>
+      <div class="card-body">
+        <div class="card-tag">Hover: Glow</div>
+        <h3 class="card-title">Card with accent glow</h3>
+        <p class="card-desc">Border turns accent color on hover with a soft glow via box-shadow. Diagonal stripe pattern in the media area using repeating-linear-gradient.</p>
+      </div>
+    </div>
+    
+    <div class="card card-border-accent scroll-reveal">
+      <div class="card-media"><div class="card-media-inner card-media-mesh"></div></div>
+      <div class="card-body">
+        <div class="card-tag">Hover: Border Accent</div>
+        <h3 class="card-title">Card with subtle border shift</h3>
+        <p class="card-desc">Simple and understated — just the border color changes. Mesh gradient in the media area. Sometimes restraint is the most powerful choice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FORMS ========== -->
+<section>
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Form Elements &amp; Focus States</span>
+    <h2 class="section-title">Form Elements</h2>
+  </div>
+  
+  <div class="form-showcase scroll-reveal">
+    <div class="form-group">
+      <label class="form-label">Text Input</label>
+      <input type="text" class="form-input" placeholder="Type something...">
+      <span class="form-hint">Focus ring uses accent color with 15% opacity spread</span>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Email (Error State)</label>
+      <input type="email" class="form-input form-input-error" value="not-an-email">
+      <span class="form-error">✕ Please enter a valid email address</span>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Message</label>
+      <textarea class="form-input form-textarea" placeholder="Write your message..."></textarea>
+    </div>
+    
+    <div class="toggle-wrapper" onclick="this.querySelector('.toggle').classList.toggle('active')">
+      <div class="toggle active"></div>
+      <span class="form-label" style="margin-bottom: 0;">Toggle Switch</span>
+    </div>
+    
+    <button class="btn btn-primary" style="width: fit-content;">Submit Form</button>
+  </div>
+</section>
+
+<!-- ========== DATA DISPLAY ========== -->
+<section>
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Dashboard Widgets, Stats, Progress, Tags</span>
+    <h2 class="section-title">Data Display</h2>
+  </div>
+  
+  <div class="stats-grid scroll-reveal">
+    <div class="stat-card">
+      <div class="stat-label">Total Users</div>
+      <div class="stat-value" data-count="12847">0</div>
+      <div class="stat-change stat-change-positive">↑ 12.4% this month</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Revenue</div>
+      <div class="stat-value">$48.2k</div>
+      <div class="stat-change stat-change-positive">↑ 8.1% this month</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Bounce Rate</div>
+      <div class="stat-value">23%</div>
+      <div class="stat-change stat-change-negative">↑ 2.3% this month</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Avg. Session</div>
+      <div class="stat-value">4:32</div>
+      <div class="stat-change stat-change-positive">↑ 0.8% this month</div>
+    </div>
+  </div>
+  
+  <div class="progress-wrapper scroll-reveal" style="margin-top: var(--space-xl);">
+    <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+      <span class="form-label">Project Progress</span>
+      <span class="form-label">72%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 72%;"></div>
+    </div>
+  </div>
+  
+  <div class="tag-showcase scroll-reveal">
+    <span class="tag tag-default">Default</span>
+    <span class="tag tag-accent">Featured</span>
+    <span class="tag tag-success">Active</span>
+    <span class="tag tag-danger">Archived</span>
+    <span class="tag tag-default">React</span>
+    <span class="tag tag-default">CSS</span>
+    <span class="tag tag-accent">New</span>
+  </div>
+</section>
+
+<!-- ========== TABLE ========== -->
+<section>
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Data Tables &amp; Row Hover</span>
+    <h2 class="section-title">Tables</h2>
+  </div>
+  
+  <div class="table-wrapper scroll-reveal">
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Technique</th>
+          <th>CSS Property</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Grain Overlay</td>
+          <td>SVG feTurbulence via data URI</td>
+          <td style="font-family: var(--font-mono); font-size: var(--text-xs);">background-image</td>
+          <td><span class="tag tag-success" style="font-size: 9px;">Active</span></td>
+        </tr>
+        <tr>
+          <td>Glassmorphism</td>
+          <td>Frosted panel effect</td>
+          <td style="font-family: var(--font-mono); font-size: var(--text-xs);">backdrop-filter: blur()</td>
+          <td><span class="tag tag-success" style="font-size: 9px;">Active</span></td>
+        </tr>
+        <tr>
+          <td>Gradient Mesh</td>
+          <td>Layered radial-gradients</td>
+          <td style="font-family: var(--font-mono); font-size: var(--text-xs);">background (multi)</td>
+          <td><span class="tag tag-accent" style="font-size: 9px;">Featured</span></td>
+        </tr>
+        <tr>
+          <td>Scroll Reveal</td>
+          <td>IntersectionObserver + CSS</td>
+          <td style="font-family: var(--font-mono); font-size: var(--text-xs);">transform, opacity</td>
+          <td><span class="tag tag-success" style="font-size: 9px;">Active</span></td>
+        </tr>
+        <tr>
+          <td>Morph Blob</td>
+          <td>Animated border-radius</td>
+          <td style="font-family: var(--font-mono); font-size: var(--text-xs);">border-radius keyframes</td>
+          <td><span class="tag tag-default" style="font-size: 9px;">Decorative</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ========== GLASSMORPHISM ========== -->
+<section id="glass">
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Glassmorphism &amp; Layered Depth</span>
+    <h2 class="section-title">Glass Panels</h2>
+  </div>
+  
+  <div class="glass-demo scroll-reveal-scale">
+    <div class="glass-shape glass-shape-1"></div>
+    <div class="glass-shape glass-shape-2"></div>
+    
+    <div class="glass-panel glass-panel-1">
+      <h4>Frosted Panel</h4>
+      <p>backdrop-filter: blur(20px) creates the glass effect. Layer over colorful backgrounds for maximum impact.</p>
+    </div>
+    
+    <div class="glass-panel glass-panel-2">
+      <h4>Layered Depth</h4>
+      <p>Overlapping panels at different z-indexes with subtle border opacity creates perceived depth without 3D transforms.</p>
+    </div>
+    
+    <div class="glass-panel glass-panel-3">
+      <h4>Floating Elements</h4>
+      <p>Colored blob shapes behind glass panels enhance the frosted effect. Animate them slowly for organic movement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DIVIDERS ========== -->
+<section>
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Decorative Dividers &amp; Borders</span>
+    <h2 class="section-title">Dividers</h2>
+  </div>
+  
+  <div class="divider-showcase scroll-reveal">
+    <div class="divider-item">
+      <div class="divider-item-label">Gradient Fade</div>
+      <div class="divider-gradient"></div>
+    </div>
+    <div class="divider-item">
+      <div class="divider-item-label">Dotted / Dashed</div>
+      <div class="divider-dotted"></div>
+    </div>
+    <div class="divider-item">
+      <div class="divider-item-label">Double Line</div>
+      <div class="divider-double"></div>
+    </div>
+    <div class="divider-item">
+      <div class="divider-item-label">Diamond Center</div>
+      <div class="divider-diamond"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TOOLTIPS ========== -->
+<section>
+  <div class="section-header scroll-reveal">
+    <span class="technique-label">Technique: Tooltips &amp; Popovers</span>
+    <h2 class="section-title">Tooltips</h2>
+  </div>
+  
+  <div class="tooltip-demo scroll-reveal">
+    <span class="has-tooltip">
+      Hover for tooltip
+      <span class="tooltip-text">Pure CSS tooltip — no JS needed</span>
+    </span>
+    
+    <span class="has-tooltip">
+      Another example
+      <span class="tooltip-text">Position: absolute + transform for centering</span>
+    </span>
+    
+    <span class="has-tooltip">
+      With arrow
+      <span class="tooltip-text">Arrow via ::after border trick ▼</span>
+    </span>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <p>Frontend Design Skill Showcase — Built with pure HTML, CSS &amp; JS</p>
+  <p>
+    <a href="#typography">Typography</a> · 
+    <a href="#color">Color</a> · 
+    <a href="#motion">Motion</a> · 
+    <a href="#composition">Layout</a> · 
+    <a href="#backgrounds">Backgrounds</a> · 
+    <a href="#glass">Glass</a>
+  </p>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+// ============================================
+// SCROLL-TRIGGERED REVEAL ANIMATIONS
+// Technique: IntersectionObserver for performant scroll detection
+// ============================================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -60px 0px'
+});
+
+document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale').forEach(el => {
+  revealObserver.observe(el);
+});
+
+// ============================================
+// ANIMATED COUNTER
+// Technique: Count-up animation for stat values
+// ============================================
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.count);
+      if (!target) return;
+      
+      const duration = 2000;
+      const start = performance.now();
+      
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 4); // ease-out quart
+        const current = Math.floor(eased * target);
+        el.textContent = current.toLocaleString();
+        
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      
+      requestAnimationFrame(update);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-count]').forEach(el => {
+  counterObserver.observe(el);
+});
+
+// ============================================
+// SMOOTH NAV HIDE/SHOW ON SCROLL
+// Technique: Transform nav on scroll direction
+// ============================================
+let lastScroll = 0;
+const navEl = document.querySelector('nav');
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  
+  if (currentScroll > lastScroll && currentScroll > 100) {
+    navEl.style.transform = 'translateY(-100%)';
+  } else {
+    navEl.style.transform = 'translateY(0)';
+  }
+  
+  navEl.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+  lastScroll = currentScroll;
+}, { passive: true });
+</script>
+
+</body>
+</html>

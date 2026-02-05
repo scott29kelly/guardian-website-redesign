@@ -1,0 +1,350 @@
+/* ============================================================
+   GUARDIAN WEBSITE REDESIGN — ADDITIVE UPGRADE STYLESHEET
+   Drop this file in WITHOUT modifying existing styles.
+   All rules use higher specificity or additive properties.
+   ============================================================ */
+
+/* ─────────────────────────────────────────────
+   1. GOOGLE FONTS IMPORT
+   Display: DM Serif Display (warm, trustworthy, premium)
+   Body: Plus Jakarta Sans (modern, clean, readable)
+   ───────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ─────────────────────────────────────────────
+   2. CSS CUSTOM PROPERTIES
+   ───────────────────────────────────────────── */
+:root {
+  /* Brand Palette */
+  --g-navy:        #1E3A5F;
+  --g-navy-deep:   #142A45;
+  --g-navy-light:  #2A4E7A;
+  --g-gold:        #D4A656;
+  --g-gold-light:  #E8C882;
+  --g-gold-pale:   #FDF6E9;
+  --g-white:       #FAFAFA;
+  --g-off-white:   #F3F1EE;
+  --g-slate:       #4A5568;
+  --g-light-gray:  #E8E6E1;
+
+  /* Typography */
+  --g-font-display: 'DM Serif Display', Georgia, serif;
+  --g-font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+
+  /* Spacing */
+  --g-section-pad:  5rem 2rem;
+
+  /* Shadows */
+  --g-shadow-sm:    0 2px 8px rgba(30, 58, 95, 0.08);
+  --g-shadow-md:    0 4px 20px rgba(30, 58, 95, 0.12);
+  --g-shadow-lg:    0 8px 40px rgba(30, 58, 95, 0.16);
+  --g-shadow-gold:  0 4px 24px rgba(212, 166, 86, 0.25);
+
+  /* Transitions */
+  --g-ease:         cubic-bezier(0.22, 1, 0.36, 1);
+  --g-duration:     0.4s;
+}
+
+/* ─────────────────────────────────────────────
+   3. TYPOGRAPHY OVERRIDES
+   ───────────────────────────────────────────── */
+body {
+  font-family: var(--g-font-body) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.hero h1,
+section h2 {
+  font-family: var(--g-font-display) !important;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+h1, .hero h1 {
+  font-size: clamp(2.4rem, 5vw, 3.8rem) !important;
+}
+
+h2, section h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem) !important;
+  position: relative;
+}
+
+/* Elegant underline accent on section headings */
+section h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--g-gold), var(--g-gold-light));
+  margin: 0.75rem auto 0;
+  border-radius: 2px;
+}
+
+/* ─────────────────────────────────────────────
+   4. SCROLL REVEAL ANIMATIONS
+   Add class .g-reveal to any element via JS below.
+   ───────────────────────────────────────────── */
+.g-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s var(--g-ease), transform 0.7s var(--g-ease);
+}
+
+.g-reveal.g-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children — apply .g-stagger to parent */
+.g-stagger > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--g-ease), transform 0.6s var(--g-ease);
+}
+
+.g-stagger.g-visible > *:nth-child(1) { transition-delay: 0.05s; }
+.g-stagger.g-visible > *:nth-child(2) { transition-delay: 0.12s; }
+.g-stagger.g-visible > *:nth-child(3) { transition-delay: 0.19s; }
+.g-stagger.g-visible > *:nth-child(4) { transition-delay: 0.26s; }
+.g-stagger.g-visible > *:nth-child(5) { transition-delay: 0.33s; }
+.g-stagger.g-visible > *:nth-child(6) { transition-delay: 0.40s; }
+
+.g-stagger.g-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero-specific entrance */
+.g-hero-entrance {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: opacity 0.9s var(--g-ease), transform 0.9s var(--g-ease);
+}
+
+.g-hero-entrance.g-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ─────────────────────────────────────────────
+   5. CARD HOVER EFFECTS
+   ───────────────────────────────────────────── */
+
+/* Service cards, testimonial cards, process step cards */
+[class*="card"],
+[class*="service"],
+.services a,
+[class*="testimonial"],
+[class*="step"] {
+  transition: transform var(--g-duration) var(--g-ease),
+              box-shadow var(--g-duration) var(--g-ease) !important;
+}
+
+[class*="card"]:hover,
+[class*="service"]:hover,
+.services a:hover,
+[class*="testimonial"]:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: var(--g-shadow-lg) !important;
+}
+
+/* Gold glow on primary CTA buttons */
+a[href="contact.html"],
+[class*="btn-primary"],
+[class*="cta"] a {
+  transition: transform 0.3s var(--g-ease),
+              box-shadow 0.3s var(--g-ease),
+              background 0.3s ease !important;
+}
+
+a[href="contact.html"]:hover,
+[class*="btn-primary"]:hover,
+[class*="cta"] a:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--g-shadow-gold) !important;
+}
+
+/* ─────────────────────────────────────────────
+   6. SECTION DIVIDERS (Angled / Wave)
+   Add .g-divider-top or .g-divider-bottom to sections
+   ───────────────────────────────────────────── */
+.g-divider-top {
+  position: relative;
+}
+
+.g-divider-top::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: inherit;
+  clip-path: polygon(0 60%, 100% 0%, 100% 100%, 0% 100%);
+  z-index: 1;
+}
+
+.g-divider-bottom {
+  position: relative;
+}
+
+.g-divider-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: inherit;
+  clip-path: polygon(0 0%, 100% 0%, 100% 40%, 0% 100%);
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────────
+   7. BACKGROUND TEXTURES & DEPTH
+   ───────────────────────────────────────────── */
+
+/* Noise texture overlay — apply .g-texture to any section */
+.g-texture {
+  position: relative;
+}
+
+.g-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.g-texture > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Gradient mesh for hero background */
+.g-hero-bg {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(42, 78, 122, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(212, 166, 86, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(20, 42, 69, 0.6) 0%, transparent 60%),
+    var(--g-navy) !important;
+}
+
+/* Subtle pattern for light sections */
+.g-pattern-light {
+  background-color: var(--g-off-white);
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(212, 166, 86, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(30, 58, 95, 0.04) 0%, transparent 50%);
+}
+
+/* Navy section with depth */
+.g-navy-rich {
+  background:
+    linear-gradient(135deg, var(--g-navy-deep) 0%, var(--g-navy) 50%, var(--g-navy-light) 100%) !important;
+}
+
+/* ─────────────────────────────────────────────
+   8. STAT COUNTER ENHANCEMENTS
+   ───────────────────────────────────────────── */
+[class*="stat"] [class*="number"],
+[class*="counter"] {
+  font-family: var(--g-font-display) !important;
+  font-size: clamp(2.2rem, 4vw, 3.2rem) !important;
+  background: linear-gradient(135deg, var(--g-gold), var(--g-gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─────────────────────────────────────────────
+   9. TESTIMONIAL QUOTE STYLING
+   ───────────────────────────────────────────── */
+blockquote,
+[class*="testimonial"] q,
+[class*="testimonial"] blockquote {
+  font-family: var(--g-font-display) !important;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+blockquote::before,
+[class*="testimonial"] blockquote::before {
+  content: '"';
+  font-family: var(--g-font-display);
+  font-size: 4rem;
+  color: var(--g-gold);
+  opacity: 0.3;
+  position: absolute;
+  top: -0.5rem;
+  left: -0.25rem;
+  line-height: 1;
+}
+
+/* ─────────────────────────────────────────────
+   10. CERTIFICATION BADGE POLISH
+   ───────────────────────────────────────────── */
+[class*="cert"],
+[class*="badge"],
+[class*="trust"] [class*="item"] {
+  border: 1px solid var(--g-light-gray) !important;
+  border-radius: 12px !important;
+  padding: 1.5rem !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+[class*="cert"]:hover,
+[class*="badge"]:hover,
+[class*="trust"] [class*="item"]:hover {
+  border-color: var(--g-gold) !important;
+  box-shadow: var(--g-shadow-sm) !important;
+}
+
+/* ─────────────────────────────────────────────
+   11. SMOOTH SCROLL & SELECTION
+   ───────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--g-gold);
+  color: var(--g-navy-deep);
+}
+
+/* ─────────────────────────────────────────────
+   12. FOCUS STATES (Accessibility)
+   ───────────────────────────────────────────── */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--g-gold) !important;
+  outline-offset: 3px !important;
+  border-radius: 4px;
+}
+
+/* ─────────────────────────────────────────────
+   13. MOBILE REFINEMENTS
+   ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .g-reveal {
+    transform: translateY(20px);
+  }
+
+  .g-divider-top::before,
+  .g-divider-bottom::after {
+    height: 35px;
+  }
+
+  section h2::after {
+    width: 45px;
+    height: 2px;
+  }
+}
