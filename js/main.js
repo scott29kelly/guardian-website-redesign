@@ -51,6 +51,8 @@ function initGraceWidget() {
         <div class="grace-message">
           Hi! I'm Grace, your virtual assistant. I can help you understand the insurance claims process, schedule inspections, or answer questions about our roofing and siding services. How can I help you today?
         </div>
+
+        <a href="grace.html" class="grace-full-link">Open full Grace page</a>
         
         <div class="grace-quick-actions">
           <button class="grace-quick-btn" data-action="inspection">Schedule Inspection</button>
