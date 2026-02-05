@@ -1,0 +1,8 @@
+{
+  "skills": {
+    "plugin": {
+      "description": "Frontend design tasks, code generation, and component creation for the Guardian website. Use for creating new pages, components, CSS styles, and JavaScript functionality following the established design system.",
+      "path": ".claude/skills/plugin.md"
+    }
+  }
+}
