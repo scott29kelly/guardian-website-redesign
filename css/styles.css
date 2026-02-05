@@ -2748,8 +2748,35 @@ input, textarea, select, button {
   opacity: 0.85;
 }
 
-.grace-panel-close {
+.grace-panel-actions {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.grace-panel-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.grace-panel-link:hover {
+  background: rgba(255, 255, 255, 0.26);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.grace-panel-close {
   background: rgba(255,255,255,0.15);
   border: none;
   color: var(--white);
@@ -2783,27 +2810,6 @@ input, textarea, select, button {
   margin-bottom: 0.75rem;
 }
 
-.grace-full-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.45rem 0.85rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--primary);
-  background: rgba(247, 148, 29, 0.12);
-  border: 1px solid rgba(247, 148, 29, 0.35);
-  border-radius: 999px;
-  text-decoration: none;
-  margin: 0.25rem 0 0.85rem;
-  transition: all var(--transition-fast);
-}
-
-.grace-full-link:hover {
-  color: var(--accent-dark);
-  background: rgba(247, 148, 29, 0.2);
-  border-color: var(--accent);
-}
 
 .grace-quick-actions {
   display: flex;
@@ -2883,6 +2889,11 @@ input, textarea, select, button {
     max-width: 360px;
     right: 0;
     bottom: 60px;
+  }
+
+  .grace-panel-link {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
   }
   
   .grace-widget-text {

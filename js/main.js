@@ -39,12 +39,15 @@ function initGraceWidget() {
           <h4>Grace</h4>
           <span>Your Insurance Claims Assistant</span>
         </div>
-        <button class="grace-panel-close" aria-label="Close chat">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
+        <div class="grace-panel-actions">
+          <a href="grace.html" class="grace-panel-link">Full page</a>
+          <button class="grace-panel-close" aria-label="Close chat">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
       </div>
       
       <div class="grace-panel-body">
@@ -52,8 +55,6 @@ function initGraceWidget() {
           Hi! I'm Grace, your virtual assistant. I can help you understand the insurance claims process, schedule inspections, or answer questions about our roofing and siding services. How can I help you today?
         </div>
 
-        <a href="grace.html" class="grace-full-link">Open full Grace page</a>
-        
         <div class="grace-quick-actions">
           <button class="grace-quick-btn" data-action="inspection">Schedule Inspection</button>
           <button class="grace-quick-btn" data-action="claims">Insurance Claims Help</button>
