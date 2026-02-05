@@ -913,10 +913,14 @@
           addMessage(data.response, 'assistant');
           conversationHistory.push({ role: 'assistant', content: data.response });
         } else {
-          addMessage('I apologize, but I\'m having trouble connecting. Please call us at 855-424-5911.', 'assistant');
+          const fallbackResponse = getDemoResponse(userMessage);
+          addMessage(fallbackResponse, 'assistant');
+          conversationHistory.push({ role: 'assistant', content: fallbackResponse });
         }
       } catch (error) {
-        addMessage('I apologize, but I\'m having trouble connecting. Please call us at 855-424-5911.', 'assistant');
+        const fallbackResponse = getDemoResponse(userMessage);
+        addMessage(fallbackResponse, 'assistant');
+        conversationHistory.push({ role: 'assistant', content: fallbackResponse });
       }
       
       setLoading(false);
