@@ -1,0 +1,193 @@
+import { useState, useRef, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { X, Send, MessageCircle } from 'lucide-react'
+import { sendMessage, type Message } from '../../lib/api'
+
+const quickActions = [
+  'I have storm damage',
+  'How do insurance claims work?',
+  'Schedule an inspection',
+  'What will I pay?',
+]
+
+export default function GraceWidget() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: 'assistant',
+      content:
+        "Hi! I'm Grace, Guardian's claims specialist. How can I help you today?",
+    },
+  ])
+  const [input, setInput] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
+
+  useEffect(() => {
+    if (isOpen) inputRef.current?.focus()
+  }, [isOpen])
+
+  const handleSend = async (text?: string) => {
+    const userMessage = text || input.trim()
+    if (!userMessage || isLoading) return
+
+    setInput('')
+    const newMessages: Message[] = [...messages, { role: 'user', content: userMessage }]
+    setMessages(newMessages)
+    setIsLoading(true)
+
+    const data = await sendMessage(newMessages)
+    setMessages((prev) => [...prev, { role: 'assistant', content: data.response }])
+    setIsLoading(false)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSend()
+    }
+    if (e.key === 'Escape') setIsOpen(false)
+  }
+
+  return (
+    <>
+      {/* Floating Button */}
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.button
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            onClick={() => setIsOpen(true)}
+            className="fixed bottom-6 right-6 z-50 group flex items-center gap-3 bg-white rounded-full shadow-xl shadow-navy/10 border border-border pl-1.5 pr-5 py-1.5 hover:shadow-2xl hover:shadow-navy/15 transition-shadow duration-300"
+          >
+            <img
+              src="/images/avatar-grace.webp"
+              alt="Grace AI Assistant"
+              className="w-10 h-10 rounded-full object-cover"
+            />
+            <span className="text-sm font-semibold text-navy whitespace-nowrap">
+              Need help with a claim?
+            </span>
+            <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Chat Modal */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[560px] max-h-[calc(100vh-6rem)] bg-white rounded-2xl shadow-2xl shadow-navy/15 border border-border flex flex-col overflow-hidden"
+          >
+            {/* Header */}
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-surface/50">
+              <img
+                src="/images/avatar-grace.webp"
+                alt="Grace"
+                className="w-9 h-9 rounded-full object-cover"
+              />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-navy">Grace</p>
+                <p className="text-xs text-green-600">Claims Specialist</p>
+              </div>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-1.5 rounded-lg text-navy/40 hover:text-navy hover:bg-slate-100 transition-colors"
+                aria-label="Close chat"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              {messages.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
+                      msg.role === 'user'
+                        ? 'bg-guardian-blue text-white rounded-br-md'
+                        : 'bg-surface text-navy border border-border rounded-bl-md'
+                    }`}
+                  >
+                    {msg.content}
+                  </div>
+                </div>
+              ))}
+
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-surface border border-border rounded-2xl rounded-bl-md px-4 py-3">
+                    <div className="flex gap-1.5">
+                      <span className="w-2 h-2 bg-navy/30 rounded-full animate-bounce [animation-delay:0ms]" />
+                      <span className="w-2 h-2 bg-navy/30 rounded-full animate-bounce [animation-delay:150ms]" />
+                      <span className="w-2 h-2 bg-navy/30 rounded-full animate-bounce [animation-delay:300ms]" />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Quick Actions */}
+              {messages.length === 1 && !isLoading && (
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {quickActions.map((action) => (
+                    <button
+                      key={action}
+                      onClick={() => handleSend(action)}
+                      className="px-3 py-1.5 bg-guardian-blue/10 text-guardian-blue text-xs font-medium rounded-full hover:bg-guardian-blue/20 transition-colors"
+                    >
+                      {action}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input */}
+            <div className="px-4 py-3 border-t border-border bg-white">
+              <div className="flex items-center gap-2">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Ask about storm damage, claims..."
+                  disabled={isLoading}
+                  className="flex-1 px-4 py-2.5 bg-surface border border-border rounded-full text-sm text-navy placeholder:text-navy/30 focus:outline-none focus:ring-2 focus:ring-guardian-blue/30 focus:border-guardian-blue disabled:opacity-50 transition-all"
+                />
+                <button
+                  onClick={() => handleSend()}
+                  disabled={!input.trim() || isLoading}
+                  className="p-2.5 bg-guardian-blue text-white rounded-full hover:bg-sky-600 disabled:opacity-40 disabled:hover:bg-guardian-blue transition-colors"
+                  aria-label="Send message"
+                >
+                  {isLoading ? (
+                    <MessageCircle className="w-4 h-4 animate-pulse" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  )
+}
