@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Send, MessageCircle } from 'lucide-react'
 import { sendMessage, type Message } from '../lib/api'
+import PageMeta from '../components/ui/PageMeta'
 
 const quickActions = [
   'I have storm damage on my roof',
@@ -55,7 +56,9 @@ export default function Grace() {
   }
 
   return (
-    <section className="py-10 lg:py-16">
+    <>
+      <PageMeta title="Ask Grace - AI Claims Specialist" description="Chat with Grace, Guardian's AI-powered insurance claims specialist. Get instant answers about storm damage, claims, and services." path="/grace" />
+      <section className="py-10 lg:py-16">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <motion.div
@@ -170,5 +173,6 @@ export default function Grace() {
         </div>
       </div>
     </section>
+    </>
   )
 }

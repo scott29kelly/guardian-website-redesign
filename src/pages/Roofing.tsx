@@ -4,6 +4,7 @@ import Hero from '../components/sections/Hero'
 import FAQ from '../components/sections/FAQ'
 import CTA from '../components/sections/CTA'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import PageMeta from '../components/ui/PageMeta'
 
 const services = [
   {
@@ -97,6 +98,7 @@ export default function Roofing() {
 
   return (
     <>
+      <PageMeta title="Roofing Services" description="Professional roof replacement, repairs, and maintenance. GAF and CertainTeed certified installers. Free inspections. Serving PA, NJ, DE, MD, VA, NY." path="/roofing" />
       <Hero
         backgroundImage="/images/hero-roofing.webp"
         headline="Professional"

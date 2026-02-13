@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Hero from '../components/sections/Hero'
 import CTA from '../components/sections/CTA'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import PageMeta from '../components/ui/PageMeta'
 
 const services = [
   {
@@ -51,6 +52,7 @@ export default function Services() {
 
   return (
     <>
+      <PageMeta title="Our Services" description="Expert roofing, siding, and storm damage repair backed by industry-leading certifications and warranties. Serving PA, NJ, DE, MD, VA, NY." path="/services" />
       <Hero
         backgroundImage="/images/hero-roofing.webp"
         headline="Our"

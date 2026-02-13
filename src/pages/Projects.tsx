@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Hero from '../components/sections/Hero'
 import CTA from '../components/sections/CTA'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import PageMeta from '../components/ui/PageMeta'
 
 type Category = 'all' | 'roofing' | 'siding' | 'storm'
 
@@ -52,6 +53,7 @@ export default function Projects() {
 
   return (
     <>
+      <PageMeta title="Project Gallery" description="See real roofing, siding, and storm damage repair transformations from homeowners across PA, NJ, DE, MD, VA, NY." path="/projects" />
       <Hero
         backgroundImage="/images/projects-hero.webp"
         headline="Our Project"

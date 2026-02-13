@@ -4,6 +4,7 @@ import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react'
 import Hero from '../components/sections/Hero'
 import FAQ from '../components/sections/FAQ'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import PageMeta from '../components/ui/PageMeta'
 
 const serviceOptions = [
   'Free Roof Inspection',
@@ -58,6 +59,7 @@ export default function Contact() {
 
   return (
     <>
+      <PageMeta title="Contact Us" description="Schedule your free roof or siding inspection. Call 855-424-5911 or fill out our contact form. Guardian Roofing & Siding, Southampton, PA." path="/contact" />
       <Hero
         backgroundImage="/images/contact-hero.webp"
         headline="Get In"

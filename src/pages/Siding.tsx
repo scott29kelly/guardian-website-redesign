@@ -4,6 +4,7 @@ import Hero from '../components/sections/Hero'
 import FAQ from '../components/sections/FAQ'
 import CTA from '../components/sections/CTA'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import PageMeta from '../components/ui/PageMeta'
 
 const benefits = [
   { icon: Palette, title: 'Enhanced Curb Appeal', description: "Transform your home's look with modern colors and styles." },
@@ -52,6 +53,7 @@ export default function Siding() {
 
   return (
     <>
+      <PageMeta title="Siding Services" description="Transform your home with beautiful, durable vinyl siding. Expert installation with lasting results. Free estimates. Serving PA, NJ, DE, MD, VA, NY." path="/siding" />
       <Hero
         backgroundImage="/images/siding-hero.webp"
         headline="Transform Your Home with"

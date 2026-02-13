@@ -3,6 +3,7 @@ import { Star, Shield, Award, Medal } from 'lucide-react'
 import Hero from '../components/sections/Hero'
 import CTA from '../components/sections/CTA'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import PageMeta from '../components/ui/PageMeta'
 
 const ratingBadges = [
   { icon: Star, label: '4.9 Stars', sublabel: '150+ reviews' },
@@ -84,6 +85,7 @@ export default function TestimonialsPage() {
 
   return (
     <>
+      <PageMeta title="Customer Testimonials" description="Read reviews from homeowners across the region who trust Guardian Roofing & Siding. 4.9 star rating, 500+ homes protected." path="/testimonials" />
       <Hero
         backgroundImage="/images/testimonials-hero.webp"
         headline="What Our"

@@ -3,6 +3,7 @@ import { Heart, Shield, Users, Star, Home, Building } from 'lucide-react'
 import Hero from '../components/sections/Hero'
 import CTA from '../components/sections/CTA'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import PageMeta from '../components/ui/PageMeta'
 
 const values = [
   { icon: Heart, title: 'Faith', description: 'Christian values; doing the right thing even when no one is watching.' },
@@ -40,6 +41,7 @@ export default function About() {
 
   return (
     <>
+      <PageMeta title="About Us" description="Guardian Roofing & Siding is a family business built on faith, integrity, and a commitment to protecting your home. Founded by Bobby Frehafer." path="/about" />
       <Hero
         backgroundImage="/images/about-hero.webp"
         headline="Our"

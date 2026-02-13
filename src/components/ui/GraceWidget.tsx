@@ -64,6 +64,7 @@ export default function GraceWidget() {
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
             onClick={() => setIsOpen(true)}
+            aria-label="Open Grace AI chat assistant"
             className="fixed bottom-6 right-6 z-50 group flex items-center gap-3 bg-white rounded-full shadow-xl shadow-navy/10 border border-border pl-1.5 pr-5 py-1.5 hover:shadow-2xl hover:shadow-navy/15 transition-shadow duration-300"
           >
             <img

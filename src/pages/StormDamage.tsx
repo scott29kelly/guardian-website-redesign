@@ -6,6 +6,7 @@ import FAQ from '../components/sections/FAQ'
 import CTA from '../components/sections/CTA'
 import Button from '../components/ui/Button'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import PageMeta from '../components/ui/PageMeta'
 
 const damageTypes = [
   {
@@ -94,6 +95,7 @@ export default function StormDamage() {
 
   return (
     <>
+      <PageMeta title="Storm Damage Repair" description="Fast response storm damage repair. We handle insurance claims so you don't have to stress. Free inspections. Call 855-424-5911." path="/storm-damage" />
       <Hero
         backgroundImage="/images/storm-damage-hero.webp"
         headline="Storm Damage?"

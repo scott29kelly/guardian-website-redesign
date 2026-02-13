@@ -3,6 +3,7 @@ import { MapPin, Building, Clock } from 'lucide-react'
 import Hero from '../components/sections/Hero'
 import CTA from '../components/sections/CTA'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import PageMeta from '../components/ui/PageMeta'
 
 const states = [
   {
@@ -61,6 +62,7 @@ export default function ServiceAreas() {
 
   return (
     <>
+      <PageMeta title="Service Areas" description="Guardian Roofing & Siding serves PA, NJ, DE, MD, VA, NY. Licensed in 6 states, within 5 hours of Southampton, PA." path="/service-areas" />
       <Hero
         backgroundImage="/images/service-areas-hero.webp"
         headline="Areas We"
