@@ -4,13 +4,13 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  // Serve root-level images/ and videos/ without duplicating to public/
-  publicDir: '.',
+  // public/ contains a junction to images/ so /images/* resolves in dev
+  publicDir: 'public',
   build: {
     rollupOptions: {
-      input: 'index-react.html',
+      input: 'index.html',
     },
-    // Don't copy entire root to dist — Vercel serves static assets from repo root
+    // Images are copied to dist via the build script (cp -r images dist/images)
     copyPublicDir: false,
   },
 })

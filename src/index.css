@@ -15,6 +15,9 @@
 /* Base styles */
 html {
   scroll-behavior: smooth;
+  /* Use clip instead of hidden to prevent horizontal scroll
+     without breaking position: sticky on descendant elements */
+  overflow-x: clip;
 }
 
 body {

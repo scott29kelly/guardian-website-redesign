@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, ChevronDown } from 'lucide-react'
 
@@ -27,11 +27,36 @@ export default function Header() {
 
   const isActive = (href: string) => location.pathname === href
 
+  const closeMobile = useCallback(() => setMobileOpen(false), [])
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    closeMobile()
+  }, [location.pathname, closeMobile])
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileOpen])
+
+  // Close on Escape key
+  useEffect(() => {
+    if (!mobileOpen) return
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeMobile()
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [mobileOpen, closeMobile])
+
   return (
     <>
       {/* Top Bar */}
-      <div className="bg-navy text-white text-sm py-2">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
+      <div className="bg-navy text-white text-sm h-8 flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center w-full">
           <span className="hidden sm:inline text-slate-300">Serving PA, NJ, DE, MD, VA, NY</span>
           <div className="flex items-center gap-4 text-slate-300 ml-auto">
             <a href="tel:855-424-5911" className="hover:text-white transition-colors">
@@ -53,7 +78,7 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 shrink-0">
             <div className="w-10 h-10 bg-navy rounded-lg flex items-center justify-center">
-              <svg viewBox="0 0 100 100" className="w-6 h-6">
+              <svg viewBox="0 0 100 100" className="w-6 h-6" aria-hidden="true">
                 <path fill="#F97316" d="M50 20L25 42v38h50V42L50 20z" />
               </svg>
             </div>
@@ -134,56 +159,69 @@ export default function Header() {
           <button
             className="lg:hidden p-2 text-navy"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle navigation"
+            aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-
-        {/* Mobile Nav */}
-        <div
-          className={`lg:hidden fixed inset-0 top-[calc(theme(spacing.16)+theme(spacing.8))] z-40 bg-white transition-transform duration-300 ${
-            mobileOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
-        >
-          <nav className="p-6 space-y-1 overflow-y-auto h-full">
-            {navLinks.map((link) => (
-              <div key={link.href}>
-                <Link
-                  to={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`block px-4 py-3 text-base font-medium rounded-xl transition-colors ${
-                    isActive(link.href)
-                      ? 'text-guardian-blue bg-sky-50'
-                      : 'text-navy hover:bg-slate-50'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-                {link.dropdown?.map((sub) => (
-                  <Link
-                    key={sub.href}
-                    to={sub.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="block pl-10 pr-4 py-2.5 text-sm text-navy/60 hover:text-navy hover:bg-slate-50 rounded-lg transition-colors"
-                  >
-                    {sub.label}
-                  </Link>
-                ))}
-              </div>
-            ))}
-            <div className="pt-4">
-              <Link
-                to="/contact"
-                onClick={() => setMobileOpen(false)}
-                className="block w-full text-center px-5 py-3 bg-gradient-to-r from-safety-orange to-orange-500 text-white font-semibold rounded-full"
-              >
-                Get Free Estimate
-              </Link>
-            </div>
-          </nav>
-        </div>
       </header>
+
+      {/* Mobile backdrop — behind the nav panel, click to close */}
+      <div
+        className={`lg:hidden fixed inset-0 z-40 bg-black/20 transition-opacity duration-300 ${
+          mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={closeMobile}
+        aria-hidden="true"
+      />
+
+      {/* Mobile Nav — fixed below the sticky header (h-16 = 4rem) */}
+      <div
+        className={`lg:hidden fixed top-16 left-0 right-0 bottom-0 z-50 bg-white overflow-y-auto transition-transform duration-300 ${
+          mobileOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+        aria-hidden={!mobileOpen}
+        role="dialog"
+        aria-label="Navigation menu"
+      >
+        <nav className="p-6 space-y-1">
+          {navLinks.map((link) => (
+            <div key={link.href}>
+              <Link
+                to={link.href}
+                onClick={closeMobile}
+                className={`block px-4 py-3 text-base font-medium rounded-xl transition-colors ${
+                  isActive(link.href)
+                    ? 'text-guardian-blue bg-sky-50'
+                    : 'text-navy hover:bg-slate-50'
+                }`}
+              >
+                {link.label}
+              </Link>
+              {link.dropdown?.map((sub) => (
+                <Link
+                  key={sub.href}
+                  to={sub.href}
+                  onClick={closeMobile}
+                  className="block pl-10 pr-4 py-2.5 text-sm text-navy/60 hover:text-navy hover:bg-slate-50 rounded-lg transition-colors"
+                >
+                  {sub.label}
+                </Link>
+              ))}
+            </div>
+          ))}
+          <div className="pt-4">
+            <Link
+              to="/contact"
+              onClick={closeMobile}
+              className="block w-full text-center px-5 py-3 bg-gradient-to-r from-safety-orange to-orange-500 text-white font-semibold rounded-full"
+            >
+              Get Free Estimate
+            </Link>
+          </div>
+        </nav>
+      </div>
     </>
   )
 }

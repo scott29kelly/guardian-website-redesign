@@ -11,6 +11,9 @@ node_modules/
 dist/
 *.tsbuildinfo
 
+# Public directory (contains junctions/symlinks to root assets)
+public/
+
 # Logs
 *.log
 
