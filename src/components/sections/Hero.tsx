@@ -24,10 +24,13 @@ export default function Hero({
     <section
       className={`relative overflow-hidden ${compact ? 'min-h-[400px]' : 'min-h-[600px] lg:min-h-[700px]'} flex items-center`}
     >
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
+      {/* Background — uses <img> for LCP optimization and accessibility */}
+      <img
+        src={backgroundImage}
+        alt=""
+        role="presentation"
+        fetchPriority="high"
+        className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-navy/80 via-navy/60 to-navy/30" />
 
