@@ -42,7 +42,7 @@ export default function FAQ({ title, items }: FAQProps) {
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 aria-expanded={openIndex === i}
                 aria-controls={`faq-answer-${i}`}
-                className="w-full flex items-center justify-between px-6 py-4 text-left text-navy font-semibold hover:bg-slate-50 transition-colors"
+                className="w-full flex items-center justify-between px-6 py-4 text-left text-navy font-semibold hover:bg-surface transition-colors"
               >
                 <span className="pr-4">{item.question}</span>
                 <ChevronDown

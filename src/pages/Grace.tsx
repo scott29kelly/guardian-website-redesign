@@ -97,7 +97,7 @@ export default function Grace() {
                   />
                 )}
                 <div
-                  className={`max-w-[75%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+                  className={`max-w-[85%] sm:max-w-[75%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                     msg.role === 'user'
                       ? 'bg-guardian-blue text-white rounded-br-md'
                       : 'bg-surface text-navy border border-border rounded-bl-md'

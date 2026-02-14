@@ -17,6 +17,7 @@ const navLinks = [
   { href: '/testimonials', label: 'Testimonials' },
   { href: '/about', label: 'About' },
   { href: '/service-areas', label: 'Service Areas' },
+  { href: '/grace', label: 'Ask Grace' },
   { href: '/contact', label: 'Contact' },
 ]
 
@@ -57,8 +58,8 @@ export default function Header() {
       {/* Top Bar */}
       <div className="bg-navy text-white text-sm h-8 flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center w-full">
-          <span className="hidden sm:inline text-slate-300">Serving PA, NJ, DE, MD, VA, NY</span>
-          <div className="flex items-center gap-4 text-slate-300 ml-auto">
+          <span className="hidden sm:inline text-white/60">Serving PA, NJ, DE, MD, VA, NY</span>
+          <div className="flex items-center gap-4 text-white/60 ml-auto">
             <a href="tel:855-424-5911" className="hover:text-white transition-colors">
               855-424-5911
             </a>
@@ -73,7 +74,7 @@ export default function Header() {
       </div>
 
       {/* Main Header */}
-      <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200">
+      <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 shrink-0">
@@ -105,14 +106,14 @@ export default function Header() {
                     className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                       isActive(link.href)
                         ? 'text-guardian-blue'
-                        : 'text-navy/70 hover:text-navy hover:bg-slate-100'
+                        : 'text-navy/70 hover:text-navy hover:bg-surface'
                     }`}
                   >
                     {link.label}
                     <ChevronDown className="w-3.5 h-3.5" />
                   </Link>
                   <div
-                    className={`absolute top-full left-0 mt-1 w-48 bg-white rounded-xl shadow-lg border border-slate-200 py-2 transition-all duration-200 ${
+                    className={`absolute top-full left-0 mt-1 w-48 bg-white rounded-xl shadow-lg border border-border py-2 transition-all duration-200 ${
                       dropdownOpen
                         ? 'opacity-100 translate-y-0 pointer-events-auto'
                         : 'opacity-0 -translate-y-2 pointer-events-none'
@@ -122,7 +123,7 @@ export default function Header() {
                       <Link
                         key={sub.href}
                         to={sub.href}
-                        className="block px-4 py-2 text-sm text-navy/70 hover:text-navy hover:bg-slate-50 transition-colors"
+                        className="block px-4 py-2 text-sm text-navy/70 hover:text-navy hover:bg-surface transition-colors"
                       >
                         {sub.label}
                       </Link>
@@ -136,7 +137,7 @@ export default function Header() {
                   className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                     isActive(link.href)
                       ? 'text-guardian-blue'
-                      : 'text-navy/70 hover:text-navy hover:bg-slate-100'
+                      : 'text-navy/70 hover:text-navy hover:bg-surface'
                   }`}
                 >
                   {link.label}
@@ -193,8 +194,8 @@ export default function Header() {
                 onClick={closeMobile}
                 className={`block px-4 py-3 text-base font-medium rounded-xl transition-colors ${
                   isActive(link.href)
-                    ? 'text-guardian-blue bg-sky-50'
-                    : 'text-navy hover:bg-slate-50'
+                    ? 'text-guardian-blue bg-guardian-blue/5'
+                    : 'text-navy hover:bg-surface'
                 }`}
               >
                 {link.label}
@@ -204,7 +205,7 @@ export default function Header() {
                   key={sub.href}
                   to={sub.href}
                   onClick={closeMobile}
-                  className="block pl-10 pr-4 py-2.5 text-sm text-navy/60 hover:text-navy hover:bg-slate-50 rounded-lg transition-colors"
+                  className="block pl-10 pr-4 py-2.5 text-sm text-navy/60 hover:text-navy hover:bg-surface rounded-lg transition-colors"
                 >
                   {sub.label}
                 </Link>

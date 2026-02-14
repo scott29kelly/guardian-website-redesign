@@ -175,7 +175,7 @@ export default function Siding() {
                 transition={{ duration: 0.6, delay: 0.2 + i * 0.05 }}
                 className="bg-white rounded-2xl border border-border overflow-hidden text-center hover:shadow-lg transition-shadow duration-300"
               >
-                <img src={style.image} alt={style.title} className="w-full h-40 object-cover" loading="lazy" />
+                <img src={style.image} alt={style.title} className="w-full h-48 object-cover" loading="lazy" />
                 <div className="p-5">
                   <h4 className="font-bold text-navy mb-1">{style.title}</h4>
                   <p className="text-sm text-text-secondary">{style.description}</p>

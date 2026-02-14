@@ -106,7 +106,7 @@ export default function Projects() {
                       {project.category}
                     </span>
                   </div>
-                  <div className="p-5">
+                  <div className="p-6">
                     <h3 className="font-bold text-navy mb-1">{project.title}</h3>
                     <p className="text-sm text-text-secondary">{project.location}</p>
                     <p className="text-xs text-guardian-blue font-medium mt-1">{project.detail}</p>
@@ -139,7 +139,7 @@ export default function Projects() {
                 transition={{ duration: 0.6, delay: 0.1 + i * 0.15 }}
                 className="bg-white rounded-2xl border border-border overflow-hidden"
               >
-                <div className="grid grid-cols-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2">
                   <div className="relative">
                     <img src={item.before} alt="Before" className="w-full h-64 object-cover" loading="lazy" />
                     <span className="absolute bottom-3 left-3 px-3 py-1 bg-black/60 text-white text-xs font-medium rounded-full">
@@ -153,7 +153,7 @@ export default function Projects() {
                     </span>
                   </div>
                 </div>
-                <div className="p-5">
+                <div className="p-6">
                   <h3 className="font-bold text-navy">{item.title}</h3>
                   <p className="text-sm text-text-secondary">
                     {item.location} &mdash; {item.description}
