@@ -1,25 +1,55 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
 
 const stats = [
-  { value: '500+', label: 'Homes Restored' },
-  { value: '15+', label: 'Years Experience' },
-  { value: '6', label: 'States Licensed' },
-  { value: '100%', label: 'Satisfaction Guarantee' },
+  { end: 500, suffix: '+', label: 'Homes Restored' },
+  { end: 15, suffix: '+', label: 'Years Experience' },
+  { end: 6, suffix: '', label: 'States Licensed' },
+  { end: 100, suffix: '%', label: 'Satisfaction Guarantee' },
 ]
 
+function CountUp({ end, suffix, trigger }: { end: number; suffix: string; trigger: boolean }) {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if (!trigger) return
+    let frame: number
+    const duration = 2000
+    const start = performance.now()
+
+    function step(now: number) {
+      const elapsed = now - start
+      const progress = Math.min(elapsed / duration, 1)
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCount(Math.round(eased * end))
+      if (progress < 1) frame = requestAnimationFrame(step)
+    }
+
+    frame = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(frame)
+  }, [trigger, end])
+
+  return <>{trigger ? count : 0}{suffix}</>
+}
+
 export default function Stats() {
-  const { ref, isInView } = useScrollReveal()
+  const { ref, isInView } = useScrollReveal('0px 0px')
 
   return (
-    <section className="py-20 lg:py-28 bg-surface" ref={ref}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section className="py-20 lg:py-28 bg-navy relative overflow-hidden" ref={ref}>
+      {/* Background accent */}
+      <div className="absolute inset-0 bg-gradient-to-br from-navy via-slate-800 to-navy" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-guardian-blue/5 rounded-full blur-3xl" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-14">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy mb-4"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4"
           >
             Why Homeowners Choose Guardian
           </motion.h2>
@@ -27,7 +57,7 @@ export default function Stats() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-lg text-text-secondary max-w-2xl mx-auto"
+            className="text-lg text-slate-300 max-w-2xl mx-auto"
           >
             We're not just contractors – we're your advocates throughout the entire process.
           </motion.p>
@@ -43,9 +73,9 @@ export default function Stats() {
               className="text-center"
             >
               <div className="text-4xl lg:text-5xl font-extrabold text-guardian-blue mb-2">
-                {stat.value}
+                <CountUp end={stat.end} suffix={stat.suffix} trigger={isInView} />
               </div>
-              <div className="text-sm font-medium text-text-secondary uppercase tracking-wider">
+              <div className="text-sm font-medium text-slate-400 uppercase tracking-wider">
                 {stat.label}
               </div>
             </motion.div>

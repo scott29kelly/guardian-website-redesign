@@ -65,17 +65,18 @@ export default function GraceWidget() {
             exit={{ scale: 0 }}
             onClick={() => setIsOpen(true)}
             aria-label="Open Grace AI chat assistant"
-            className="fixed bottom-6 right-6 z-50 group flex items-center gap-3 bg-white rounded-full shadow-xl shadow-navy/10 border border-border pl-1.5 pr-5 py-1.5 hover:shadow-2xl hover:shadow-navy/15 transition-shadow duration-300"
+            className="fixed bottom-6 right-6 z-50 group flex items-center gap-2 rounded-full p-[2px] bg-gradient-to-r from-guardian-blue to-sky-400 shadow-xl shadow-guardian-blue/20 hover:shadow-2xl hover:shadow-guardian-blue/30 transition-shadow duration-300"
           >
-            <img
-              src="/images/avatar-grace.webp"
-              alt="Grace AI Assistant"
-              className="w-10 h-10 rounded-full object-cover"
-            />
-            <span className="text-sm font-semibold text-navy whitespace-nowrap">
-              Need help with a claim?
+            <span className="flex items-center gap-2 bg-white rounded-full pl-1 pr-4 py-1">
+              <img
+                src="/images/avatar-grace.webp"
+                alt="Grace AI Assistant"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className="text-sm font-semibold text-navy whitespace-nowrap">
+                Ask Grace
+              </span>
             </span>
-            <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
           </motion.button>
         )}
       </AnimatePresence>

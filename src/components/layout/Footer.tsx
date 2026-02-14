@@ -37,8 +37,8 @@ export default function Footer() {
             </Link>
             <p className="text-white/60 text-sm leading-relaxed mb-4">
               Guardian Roofing & Siding is a family-owned business built on Christian values,
-              integrity, and a commitment to protecting your home. Founded by Bobby Frehafer, we
-              treat every customer like family.
+              integrity, and a commitment to protecting your home. At Guardian, we treat every
+              customer like family.
             </p>
             <div className="flex flex-wrap gap-2">
               {['BBB A+', 'GAF Certified', 'Atlas Pro+'].map((cert) => (
